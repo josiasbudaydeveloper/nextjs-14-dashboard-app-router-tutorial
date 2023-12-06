@@ -1,10 +1,12 @@
-
 # nextjs-14-dashboard-app-router-tutorial
 This is the official Next.js 14's Dashboard app tutorial, using the last Next.js 14's features, including the App Router.
 
 [Click here to visit the tutorial](https://nextjs.org/learn)
 
-> I'll developt it entirely and host it on Vercel.
+> I'm developing it entirely and hosting it on Vercel.
+> You can access the current version of the live project at:
+> 
+> https://josiasbudaydeveloper-next-14-dashboard-app.vercel.app/dashboard
 
 ## How does the course work?
 
