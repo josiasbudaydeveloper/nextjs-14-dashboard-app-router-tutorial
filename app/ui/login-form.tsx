@@ -26,7 +26,7 @@ export default function LoginForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="email"
             >
-              Email
+              Email (use: 'user@nextmail.com')
             </label>
             <div className="relative">
               <input
@@ -36,7 +36,6 @@ export default function LoginForm() {
                 name="email"
                 placeholder="Enter your email address"
                 required
-                title="user@nextmail.com"
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
@@ -46,7 +45,7 @@ export default function LoginForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Password
+              Password (use: '123456')
             </label>
             <div className="relative">
               <input
@@ -57,7 +56,6 @@ export default function LoginForm() {
                 placeholder="Enter password"
                 required
                 minLength={6}
-                title="123456"
               />
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
