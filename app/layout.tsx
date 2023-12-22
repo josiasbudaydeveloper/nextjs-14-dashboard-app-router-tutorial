@@ -8,7 +8,10 @@ export const metadata: Metadata = {
     default: 'Acme Dashboard',
   },
   description: 'The official Next.js Learn Dashboard built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  openGraph: {
+    title: 'Next.js 14 Tutorial: Dashboard App',
+    description: 'The official Next.js Learn Dashboard built with App Router.',
+  }
 };
  
 export default function RootLayout({
