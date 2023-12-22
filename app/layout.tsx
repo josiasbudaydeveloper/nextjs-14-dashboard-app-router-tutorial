@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     template: '%s | Acme Dashboard',
     default: 'Acme Dashboard',
   },
+  metadataBase: new URL('https://josiasbudaydeveloper-next-14-dashboard-app.vercel.app/'),
   description: 'The official Next.js Learn Dashboard built with App Router.',
   openGraph: {
     title: 'Next.js 14 Tutorial: Dashboard App',
