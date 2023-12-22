@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Next.js 14 Tutorial: Dashboard App',
     description: 'The official Next.js Learn Dashboard built with App Router.',
+    siteName: 'Acme Dashboard',
+    locale: 'en_US'
   }
 };
  
