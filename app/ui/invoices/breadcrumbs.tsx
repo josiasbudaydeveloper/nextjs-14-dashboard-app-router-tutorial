@@ -21,7 +21,7 @@ export default function Breadcrumbs({
           <li
             key={breadcrumb.href}
             aria-current={breadcrumb.active}
-            className={clsx(`${breadcrumb.active ? `${darkTheme.title}` : `${darkTheme.textGray}`}
+            className={clsx(`${breadcrumb.active && `${darkTheme.text}`}
             `, breadcrumb.active ? 'text-gray-900' : 'text-gray-500',
             )}
           >

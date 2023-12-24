@@ -112,7 +112,7 @@ function PaginationArrow({
   const className = clsx(
     `flex h-10 w-10 items-center justify-center rounded-md border
       ${darkTheme.border} ${darkTheme.text}
-      ${isDisabled && `${darkTheme.textGray} ${darkTheme.borderGray}`}
+      ${isDisabled && `${darkTheme.border} ${darkTheme.notActiveText}`}
       ${!isDisabled && `${darkTheme.hoverBorder} ${darkTheme.hoverBg} ${darkTheme.hoverText}`}
     `,
     {

@@ -1,12 +1,10 @@
 export default {
   bg: 'dark:bg-[#181818]',
   container: 'dark:bg-[#212121]',
-  text: 'dark:text-[#ebebeb]',
   title: 'dark:text-white',
+  text: 'dark:text-[#ebebeb]',
   border: 'dark:border-gray-500',
-  textGray: 'dark:text-gray-700',
-  textLightGray: 'dark:text-gray-400',
-  borderGray: 'dark:border-gray-700',
+  notActiveText: 'dark:text-gray-500',
 
   // Actions
   activeLink: 'dark:bg-[#1c2932] dark:hover:bg-[#1c2932]',
