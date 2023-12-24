@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
+import darkTheme from '@/app/lib/dark-theme';
 
 export default function EditInvoiceForm({
   invoice,
@@ -25,17 +26,24 @@ export default function EditInvoiceForm({
 
   return (
     <form action={dispatch}>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+      <div className={`rounded-md bg-gray-50 p-4 md:p-6
+        ${darkTheme.container}
+      `}>
         {/* Customer Name */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="customer" className={`mb-2 block text-sm font-medium 
+            ${darkTheme.title}
+          `}>
             Choose customer
           </label>
           <div className="relative">
             <select
               id="customer"
               name="customerId"
-              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className={`peer block w-full cursor-pointer rounded-md border 
+              border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
+              ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+              `}
               defaultValue={invoice.customer_id}
               aria-describedby="customer-error"
             >
@@ -48,7 +56,9 @@ export default function EditInvoiceForm({
                 </option>
               ))}
             </select>
-            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+            <UserCircleIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
+              -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+            `}/>
           </div>
           <div id="customer-error" aria-live="polite" aria-atomic="true">
             {state.errors?.customerId &&
@@ -62,7 +72,7 @@ export default function EditInvoiceForm({
 
         {/* Invoice Amount */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+          <label htmlFor="amount" className={`mb-2 block text-sm font-medium ${darkTheme.text}`}>
             Choose an amount
           </label>
           <div className="relative mt-2 rounded-md">
@@ -74,10 +84,15 @@ export default function EditInvoiceForm({
                 step="0.01"
                 defaultValue={invoice.amount}
                 placeholder="Enter USD amount"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className={`peer block w-full rounded-md border border-gray-200 
+                  py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
+                  ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                `}
                 aria-describedby="amount-error"
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <CurrencyDollarIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
+                -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+              `}/>
             </div>
             <div id="amount-error" aria-live="polite" aria-atomic="true">
               {state.errors?.amount &&
@@ -92,10 +107,12 @@ export default function EditInvoiceForm({
 
         {/* Invoice Status */}
         <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
+          <legend className={`mb-2 block text-sm font-medium ${darkTheme.text}`}>
             Set the invoice status
           </legend>
-          <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
+          <div className={`rounded-md border border-gray-200 bg-white px-[14px] py-3
+            ${darkTheme.bg} ${darkTheme.border}
+          `}>
             <div className="flex gap-4">
               <div className="flex items-center">
                 <input
@@ -104,12 +121,17 @@ export default function EditInvoiceForm({
                   type="radio"
                   value="pending"
                   defaultChecked={invoice.status === 'pending'}
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                  className={`h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 
+                    text-gray-600 focus:ring-2 ${darkTheme.container} ${darkTheme.border}
+                  `}
                   aria-describedby="status-error"
                 />
                 <label
                   htmlFor="pending"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
+                  className={`ml-2 flex cursor-pointer items-center gap-1.5 rounded-full 
+                  bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600
+                    ${darkTheme.container} ${darkTheme.border} ${darkTheme.textLightGray}
+                  `}
                 >
                   Pending <ClockIcon className="h-4 w-4" />
                 </label>
@@ -121,7 +143,9 @@ export default function EditInvoiceForm({
                   type="radio"
                   value="paid"
                   defaultChecked={invoice.status === 'paid'}
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                  className={`h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 
+                    text-gray-600 focus:ring-2 ${darkTheme.container} ${darkTheme.border}
+                  `}
                   aria-describedby="status-error"
                 />
                 <label
@@ -152,7 +176,12 @@ export default function EditInvoiceForm({
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/dashboard/invoices"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          className={`
+            flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium 
+            text-gray-600 transition-colors hover:bg-gray-200
+            ${darkTheme.container} ${darkTheme.border} ${darkTheme.textLightGray}
+            ${darkTheme.hoverBg} ${darkTheme.hoverText}
+          `}
         >
           Cancel
         </Link>

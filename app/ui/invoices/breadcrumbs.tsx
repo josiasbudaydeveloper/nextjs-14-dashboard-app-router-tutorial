@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import Link from 'next/link';
 import { lusitana } from '@/app/ui/fonts';
+import darkTheme from '@/app/lib/dark-theme';
 
 interface Breadcrumb {
   label: string;
@@ -20,8 +21,8 @@ export default function Breadcrumbs({
           <li
             key={breadcrumb.href}
             aria-current={breadcrumb.active}
-            className={clsx(
-              breadcrumb.active ? 'text-gray-900' : 'text-gray-500',
+            className={clsx(`${breadcrumb.active ? `${darkTheme.title}` : `${darkTheme.textGray}`}
+            `, breadcrumb.active ? 'text-gray-900' : 'text-gray-500',
             )}
           >
             <Link href={breadcrumb.href}>{breadcrumb.label}</Link>

@@ -1,6 +1,7 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/actions';
+import darkTheme from '@/app/lib/dark-theme';
 
 export function CreateInvoice() {
   return (
@@ -18,7 +19,10 @@ export function UpdateInvoice({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/invoices/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className={`rounded-md border p-2 hover:bg-gray-100
+        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
+        ${darkTheme.hoverBorder}
+      `}
     >
       <PencilIcon className="w-5" />
     </Link>
@@ -30,9 +34,12 @@ export function DeleteInvoice({ id }: { id: string }) {
  
   return (
     <form action={deleteInvoiceWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button className={`rounded-md border p-2 hover:bg-gray-100
+        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
+        ${darkTheme.hoverBorder}
+      `}>
         <span className="sr-only">Delete</span>
-        <TrashIcon className="w-4" />
+        <TrashIcon className="w-5" />
       </button>
     </form>
   );

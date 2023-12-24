@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { generatePagination } from '@/app/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
+import darkTheme from '@/app/lib/dark-theme';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
@@ -75,7 +76,12 @@ function PaginationNumber({
   isActive: boolean;
 }) {
   const className = clsx(
-    'flex h-10 w-10 items-center justify-center text-sm border',
+    `flex h-10 w-10 items-center justify-center text-sm border
+      ${darkTheme.border} ${darkTheme.text}
+      ${(!isActive && position !== 'middle') && 
+        `${darkTheme.hoverBorder} ${darkTheme.hoverBg} ${darkTheme.hoverText}`
+      }
+    `,
     {
       'rounded-l-md': position === 'first' || position === 'single',
       'rounded-r-md': position === 'last' || position === 'single',
@@ -104,7 +110,11 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    'flex h-10 w-10 items-center justify-center rounded-md border',
+    `flex h-10 w-10 items-center justify-center rounded-md border
+      ${darkTheme.border} ${darkTheme.text}
+      ${isDisabled && `${darkTheme.textGray} ${darkTheme.borderGray}`}
+      ${!isDisabled && `${darkTheme.hoverBorder} ${darkTheme.hoverBg} ${darkTheme.hoverText}`}
+    `,
     {
       'pointer-events-none text-gray-300': isDisabled,
       'hover:bg-gray-100': !isDisabled,
