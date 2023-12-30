@@ -12,7 +12,9 @@ export default async function CustomersTable({
 }) {
   return (
     <div className="w-full">
-      <Search placeholder="Search customers..." />
+      <div className="mt-4 md:mt-8">
+        <Search placeholder="Search customers..." />
+      </div>
 
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">
