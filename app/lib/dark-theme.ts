@@ -5,6 +5,7 @@ export default {
   text: 'dark:text-[#ebebeb]',
   border: 'dark:border-gray-500',
   notActiveText: 'dark:text-gray-500',
+  divide: 'dark:divide-gray-500',
 
   // Actions
   activeLink: 'dark:bg-[#1c2932] dark:hover:bg-[#1c2932]',
