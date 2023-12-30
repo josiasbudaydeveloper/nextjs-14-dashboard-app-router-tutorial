@@ -15,11 +15,9 @@ export default async function Page({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
   };
 }) {
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
 
   const customers = await fetchFilteredCustomers(query);
 
@@ -28,7 +26,7 @@ export default async function Page({
       <div className="flex w-full items-center justify-between">
         <h1 className={`${lusitana.className} text-2xl ${darkTheme.title}`}>Customers</h1>
       </div>
-      <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
+      <Suspense key={query} fallback={<InvoicesTableSkeleton />}>
         <Table customers={customers} />
       </Suspense>
     </div>
