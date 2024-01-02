@@ -3,8 +3,7 @@ This project is a tutorial course created by Vercel to teach the Next 14's most 
 
 [Click here to visit the tutorial](https://nextjs.org/learn)
 
-> I'm developing it entirely and hosting it on Vercel.
-> You can access the current version of the live project at:
+> You can access the current live version of the live project on:
 > 
 > https://josiasbudaydeveloper-next-14-dashboard-app.vercel.app/dashboard
 
@@ -22,60 +21,26 @@ By building a full web application. Step by step.
 
 - At the end I'll have a website that’s ready to ship and the knowledge to build and deploy my own.
 
-## What will I learn?
+## What do I did until now?
 
-Here’s everything that’s covered in the course.
+Here’s everything I did in the version 1.0
 
-### Introduction
+This project is a Dashboard App that is a single page application (SPA) with client-side navigation and three main pages:
+- Dashboard - A summary of all invoices.
+- Invoices - A list of all invoices and the possibility of searching, creating, editing or deleting any invoice. It also has pagination at the bottom of the page.
+- Customers - A list of all customers with a search bar for searching for specific customers. There's no pagination here in this version, so all customers are displayed at the same time.
+- Dark Theme - Based on Tailwind.css and that only works based on the browser theme.
 
-Learn how to build a full-stack web application with the free, Next.js App Router Course.
+This is the primary version of this project, which only accepts one single user and only has the credentials provider for authentication.
 
-#### 1 - Getting Started:
-Create a new Next.js application using the dashboard starter example and explore the project.
+## What do I intend to implement?
 
-#### 2 - CSS Styling:
-Style your Next.js application with Tailwind and CSS modules.
-
-#### 3 - Optimizing Fonts and Images:
-Optimize fonts and images with the Next.js built-in components.
-
-#### 4 - Creating Layouts and Pages:
-Create the dashboard routes and a shared layout that can be shared between multiple pages.
-
-#### 5 - Navigating Between Pages:
-Learn how to use the <Link> component to navigate between pages.
-
-#### 6 - Setting Up Your Database:
-Setup a database for your application and seed it with initial data.
-
-#### 7 - Fetching Data:
-Learn about the different ways to fetch data in Next.js, and fetch data for your dashboard page using Server Components.
-
-#### 8 - Static and Dynamic Rendering:
-Understand how rendering works in Next.js, and make your dashboard app dynamic.
-
-#### 9 - Streaming:
-Improve your application's loading experience with streaming and loading skeletons.
-
-#### 10 - Partial Prerendering (Optional):
-An early look into Partial Prerendering and how it works.
-
-#### 11 - Adding Search and Pagination:
-Add search and pagination to your dashboard application using Next.js APIs.
-
-#### 12 - Mutating Data:
-Mutate data using React Server Actions, and revalidate the Next.js cache.
-
-#### 13 - Handling Errors:
-Handle errors gracefully with error.tsx and notFound.
-
-#### 14 - Improving Accessibility:
-Implement server-side form validation and improve accessibility in your forms.
-
-#### 15 - Adding Authentication:
-Add authentication to protect your dashboard routes using NextAuth.js, Server Actions, and Middleware.
-#### 16 - Adding Metadata:
-Learn how to add metadata to your Next.js application.
-
-#### 17 - Next Steps:
-Next.js Dashboard Course Conclusion
+Here’s everything I did in the version 2.0:
+- Multiuser system
+- OAuth Authentication
+- Pagination for the customers, as they're going to be flexible at this version
+- Dark Theme feature based on the user's choice and stored on the Database:
+  - On
+  - Off
+  - System Default
+- API for making its Back-End possible to fit the information of a possible mobile app in the future versions.
