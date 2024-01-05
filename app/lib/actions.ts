@@ -137,3 +137,7 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function authenticateWithOAuth(provider: string) {
+  await signIn(provider);
+}
