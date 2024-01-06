@@ -53,7 +53,7 @@ const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 // This is temporary until @types/react-dom is updated
-export type State = {
+export type InvoiceState = {
   errors?: {
     customerId?: string[];
     amount?: string[];
@@ -62,7 +62,16 @@ export type State = {
   message?: string | null;
 };
 
-export async function createInvoice(prevState: State, formData: FormData) {
+export type UserState = {
+  errors?: {
+    name?: string[];
+    email?: string[];
+    password?: string[]
+  }
+  message?: string | null;
+}
+
+export async function createInvoice(prevState: InvoiceState, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
@@ -103,7 +112,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
 
 export async function updateInvoice(
   id: string,
-  prevState: State,
+  prevState: InvoiceState,
   formData: FormData,
 ) {
   const validatedFields = UpdateInvoice.safeParse({
@@ -146,7 +155,7 @@ export async function deleteInvoice(id: string) {
   }
 }
 
-export async function createUser(prevState: State, formData: FormData) {
+export async function createUser(prevState: UserState, formData: FormData) {
   // Validate form using Zod
   const validatedFields = UserSchema.safeParse({
     name: formData.get('name'),
