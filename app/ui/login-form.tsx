@@ -13,20 +13,21 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
 import darkTheme from '../lib/dark-theme';
 import { authenticateWithOAuth } from '@/app/lib/actions';
+import { useRouter } from 'next/navigation';
 
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
  
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
- 
+
   return (
     <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
         px-6 pb-4 pt-8
       ">
-      <form action={dispatch} className="space-y-3">  
         <h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title}`}>
           Please log in to continue.
         </h1>
+      <form action={dispatch} className="space-y-3">  
         <div className="w-full">
           <div>
             <label
@@ -80,8 +81,8 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
+        
         <LoginButton />
-        <CreateAccount />
         
         {errorMessage && (
           <div
@@ -95,6 +96,8 @@ export default function LoginForm() {
         )}
         
       </form>
+
+      <CreateAccount />
 
       <p className={`
         ${darkTheme.text} pb-2 pt-[9px] text-center
@@ -119,9 +122,13 @@ function LoginButton() {
 
 function CreateAccount() {
   const { pending } = useFormStatus();
+  
+  const { replace } = useRouter();
  
   return (
-    <Button className="mt-4 w-full" aria-disabled={pending}>
+    <Button className="mt-2 w-full" aria-disabled={pending} onClick={() => {
+      replace('/create-account');
+    }}>
       Create Account <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
