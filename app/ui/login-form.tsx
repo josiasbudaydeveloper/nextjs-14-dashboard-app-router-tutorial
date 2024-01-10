@@ -148,7 +148,7 @@ function GitHubSignInButton() {
       <button className={`
         flex h-10 items-center rounded-lg
         px-4 text-sm font-medium
-        w-full bg-black hover:bg-[#151515]
+        w-full bg-black hover:bg-[#101010]
         text-white
       `} type='submit'>
         <Image
