@@ -10,7 +10,7 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
 import Image from 'next/image';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
+import { authenticateWithCredentials } from '@/app/lib/actions';
 import darkTheme from '../lib/dark-theme';
 import { authenticateWithOAuth } from '@/app/lib/actions';
 import { useRouter } from 'next/navigation';
@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
  
 export default function LoginForm() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [errorMessage, dispatch] = useFormState(authenticateWithCredentials, undefined);
 
   return (
     <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
@@ -34,7 +34,7 @@ export default function LoginForm() {
               className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
               htmlFor="email"
             >
-              Email (use: &apos;user@nextmail.com&apos;)
+              Email:
             </label>
             <div className="relative">
               <input
@@ -59,7 +59,7 @@ export default function LoginForm() {
               className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
               htmlFor="password"
             >
-              Password (use: &apos;123456&apos;)
+              Password:
             </label>
             <div className="relative">
               <input

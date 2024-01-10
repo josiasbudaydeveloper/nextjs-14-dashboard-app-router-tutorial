@@ -6,13 +6,14 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import bcrypt from 'bcrypt';
 
 // A regular expression to check for valid email format
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 // A regular expression to check for at least one special character, one upper case 
-// letter, one lower case letter and at least 12 characters
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[-_!@#$%^&*]).{12,}$/;
+// letter, one lower case letter and at least 8 characters
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[-_!@#$%^&*]).{8,}$/;
 
 // A Zod schema for the name field
 const nameSchema = z.string().min(3, "Name must have at least 3 characters");
@@ -22,7 +23,7 @@ const emailSchema = z.string().regex(emailRegex, "Invalid email format");
 
 // A Zod schema for the password field
 const passwordSchema = z.string().regex(passwordRegex, `
-  Password must have at least 12 characters, 
+  Password must have at least 8 characters, 
   one special character, one upper case letter and one lower case letter
 `);
 
@@ -155,7 +156,7 @@ export async function deleteInvoice(id: string) {
   }
 }
 
-export async function createUser(prevState: UserState, formData: FormData) {
+export async function createUserWithCredentials(prevState: UserState, formData: FormData) {
   // Validate form using Zod
   const validatedFields = UserSchema.safeParse({
     name: formData.get('name'),
@@ -170,14 +171,42 @@ export async function createUser(prevState: UserState, formData: FormData) {
       message: 'Missing or wrong fields. Failed to create Account.',
     };
   }
+
+  const { name, email, password } = validatedFields.data;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const account = await sql`SELECT * FROM users2 WHERE email=${email}`;
+
+  if (account.rowCount) {
+    return {
+      message: `${account.rowCount} This email address is already in use, please use another one!`
+    }
+  }
+
+  try {
+    await sql`INSERT INTO users2 (name, email, password, isoauth) VALUES
+     (${name}, ${email}, ${hashedPassword}, ${false})`;
+  } catch (error) {
+    console.log(`
+      Database Error: Failed to create account:
+      ${error}
+    `);
+    return {
+      message: `
+        Database Error: Failed to create account.
+        Please try again or contact the support team.
+      `
+    }
+  }
   
   redirect('/login');
 }
 
-export async function authenticate(
+export async function authenticateWithCredentials(
   prevState: string | undefined,
   formData: FormData,
 ) {
+
   try {
     await signIn('credentials', formData);
   } catch (error) {
