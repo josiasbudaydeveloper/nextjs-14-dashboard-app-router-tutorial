@@ -16,6 +16,13 @@ import { authenticateWithOAuth } from '@/app/lib/actions';
 import { useRouter } from 'next/navigation';
 
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
+// const GoogleSignIn = authenticateWithOAuth.bind(null, 'google');
+function GoogleSignIn() {
+  alert(
+    "This login option does not work due to Google's privacy protection rules. \n\n" +
+    "As this is a test project, I cannot provide all the necessary bureaucracy."
+  );
+}
  
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticateWithCredentials, undefined);
@@ -106,6 +113,7 @@ export default function LoginForm() {
       </p>
 
       <GitHubSignInButton />
+      <GoogleSignInButton />
     </div>
   );
 }
@@ -137,7 +145,7 @@ function CreateAccount() {
 function GitHubSignInButton() {
   return (
     <form action={GitHubSignIn}>
-      <Button className={`w-full`} type='submit'>
+      <Button className={`w-full bg-black hover:bg-[#121212]`} type='submit'>
         <Image
           src='oauth-logos/github.svg'
           width={25}
@@ -147,6 +155,29 @@ function GitHubSignInButton() {
         <p className={`px-2 w-full`}>Sign in with GitHub</p>
         <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
       </Button>
+    </form>
+  )
+}
+
+function GoogleSignInButton() {
+  return (
+    <form action={GoogleSignIn}>
+      <button className={`
+        flex h-10 items-center rounded-lg
+        px-4 text-sm font-medium
+        w-full bg-white hover:bg-[#4287f5]
+        text-black hover:text-white
+        mt-2
+      `} type='submit'>
+        <Image
+          src='oauth-logos/google.svg'
+          width={25}
+          height={25}
+          alt='Google logo'
+        />
+        <p className={`px-2 w-full`}>Sign in with Google</p>
+        <ArrowRightIcon className="ml-auto h-5 w-5" />
+      </button>
     </form>
   )
 }
