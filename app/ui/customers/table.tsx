@@ -1,15 +1,15 @@
-import Image from 'next/image';
 import Search from '@/app/ui/search';
-import {
-  FormattedCustomersTable,
-} from '@/app/lib/definitions';
 import darkTheme from '@/app/lib/dark-theme';
+import { fetchFilteredCustomers } from '@/app/lib/data';
 
 export default async function CustomersTable({
-  customers,
+  query,
 }: {
-  customers: FormattedCustomersTable[];
+  query: string;
 }) {
+
+  const customers = await fetchFilteredCustomers(query);
+
   return (
     <div className="w-full">
       <div className="mt-4 md:mt-8">
@@ -34,13 +34,6 @@ export default async function CustomersTable({
                       <div>
                         <div className="mb-2 flex items-center">
                           <div className="flex items-center gap-3">
-                            <Image
-                              src={customer.image_url}
-                              className="rounded-full"
-                              alt={`${customer.name}'s profile picture`}
-                              width={28}
-                              height={28}
-                            />
                             <p className={`${darkTheme.title}`}>{customer.name}</p>
                           </div>
                         </div>
@@ -102,13 +95,6 @@ export default async function CustomersTable({
                         text-black ${darkTheme.title} group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6
                       `}>
                         <div className="flex items-center gap-3">
-                          <Image
-                            src={customer.image_url}
-                            className="rounded-full"
-                            alt={`${customer.name}'s profile picture`}
-                            width={28}
-                            height={28}
-                          />
                           <p>{customer.name}</p>
                         </div>
                       </td>
