@@ -145,7 +145,12 @@ function CreateAccount() {
 function GitHubSignInButton() {
   return (
     <form action={GitHubSignIn}>
-      <Button className={`w-full bg-black hover:bg-[#121212]`} type='submit'>
+      <button className={`
+        flex h-10 items-center rounded-lg
+        px-4 text-sm font-medium
+        w-full bg-black hover:bg-[#151515]
+        text-white
+      `} type='submit'>
         <Image
           src='oauth-logos/github.svg'
           width={25}
@@ -154,7 +159,7 @@ function GitHubSignInButton() {
         />
         <p className={`px-2 w-full`}>Sign in with GitHub</p>
         <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-      </Button>
+      </button>
     </form>
   )
 }
