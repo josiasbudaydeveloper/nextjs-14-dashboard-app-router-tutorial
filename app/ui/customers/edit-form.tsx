@@ -1,19 +1,24 @@
 'use client';
 
-import { CustomerField } from '@/lib/definitions';
-import Link from 'next/link';
 import {
   AtSymbolIcon,
-  UserCircleIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
-import { Button } from '@/ui/button';
-import { createCustomer } from '@/lib/actions';
+import Link from 'next/link';
+import { Button } from '@/app/ui/button';
+import { updateCustomer } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from '@/app/lib/dark-theme';
+import { Customer } from '@/app/lib/definitions';
 
-export default function Form() {
+export default function EditInvoiceForm({
+  customer
+}: {
+  customer: Customer
+}) {
+  const updateCustomerWithId = updateCustomer.bind(null, customer.id);
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createCustomer, initialState);
+  const [state, dispatch] = useFormState(updateCustomerWithId, initialState);
 
   return (
     <form action={dispatch}>
@@ -28,6 +33,7 @@ export default function Form() {
             <input
               id="name"
               name="name"
+              defaultValue={customer.name}
               type="text"
               placeholder="Type the customer name"
               className={`peer block w-full rounded-md border border-gray-200 
@@ -62,6 +68,7 @@ export default function Form() {
               <input
                 id="email"
                 name="email"
+                defaultValue={customer.email}
                 type="mail"
                 placeholder="Enter the customer email"
                 className={`peer block w-full rounded-md border border-gray-200 
@@ -104,7 +111,7 @@ export default function Form() {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Customer</Button>
+        <Button type="submit">Update Customer</Button>
       </div>
     </form>
   );

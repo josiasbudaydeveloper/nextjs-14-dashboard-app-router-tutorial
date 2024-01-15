@@ -1,7 +1,7 @@
-import '@/ui/global.css';
-import { inter } from '@/ui/fonts';
+import '@/app/ui/global.css';
+import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from './lib/dark-theme';
  
 export const metadata: Metadata = {
   title: {

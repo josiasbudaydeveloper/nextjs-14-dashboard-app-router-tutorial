@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import NavLinks from '@/ui/dashboard/nav-links';
-import AcmeLogo from '@/ui/acme-logo';
+import NavLinks from '@/app/ui/dashboard/nav-links';
+import AcmeLogo from '@/app/ui/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from '@/app/lib/dark-theme';
 
 export default function SideNav() {
   return (

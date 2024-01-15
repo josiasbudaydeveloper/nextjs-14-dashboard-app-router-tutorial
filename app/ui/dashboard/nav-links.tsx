@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from '@/app/lib/dark-theme';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.

@@ -1,6 +1,6 @@
-import Search from '@/ui/search';
-import darkTheme from '@/lib/dark-theme';
-import { fetchFilteredCustomers } from '@/lib/data';
+import Search from '@/app/ui/search';
+import darkTheme from '@/app/lib/dark-theme';
+import { fetchFilteredCustomers } from '@/app/lib/data';
 import { CreateCustomer, DeleteCustomer, UpdateCustomer } from '../invoices/buttons';
 
 export default async function CustomersTable({

@@ -5,7 +5,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-import type { User } from '@/lib/definitions';
+import type { User } from '@/app/lib/definitions';
 import bcrypt from 'bcrypt';
 
 async function getUser(email: string): Promise<User | undefined> {

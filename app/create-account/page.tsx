@@ -1,5 +1,5 @@
-import AcmeLogo from '@/ui/acme-logo';
-import CreateAccountForm from '@/ui/create-account-form';
+import AcmeLogo from '@/app/ui/acme-logo';
+import CreateAccountForm from '@/app/ui/create-account-form';
 import { Metadata } from 'next'; 
 
 export const metadata: Metadata = {

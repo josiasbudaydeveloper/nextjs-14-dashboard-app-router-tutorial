@@ -1,6 +1,6 @@
 'use client';
 
-import { CustomerField, InvoiceForm } from '@/lib/definitions';
+import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import {
   CheckIcon,
   ClockIcon,
@@ -8,10 +8,10 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Button } from '@/ui/button';
-import { updateInvoice } from '@/lib/actions';
+import { Button } from '@/app/ui/button';
+import { updateInvoice } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from '@/app/lib/dark-theme';
 
 export default function EditInvoiceForm({
   invoice,

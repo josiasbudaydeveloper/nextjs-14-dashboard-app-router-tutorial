@@ -1,5 +1,5 @@
-import Form from '@/ui/customers/create-form';
-import Breadcrumbs from '@/ui/invoices/breadcrumbs';
+import Form from '@/app/ui/customers/create-form';
+import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { Metadata } from 'next'; 
 
 export const metadata: Metadata = {

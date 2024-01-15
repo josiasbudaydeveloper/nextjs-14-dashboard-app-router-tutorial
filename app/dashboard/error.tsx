@@ -2,7 +2,7 @@
  
 import { useEffect } from 'react';
 import { Metadata } from 'next'; 
-import darkTheme from '@/lib/dark-theme';
+import darkTheme from '@/app/lib/dark-theme';
 
 export const metadata: Metadata = {
   title: 'Error',

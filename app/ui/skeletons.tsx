@@ -1,4 +1,4 @@
-import darkTheme from "@/lib/dark-theme";
+import darkTheme from "../lib/dark-theme";
 
 // Loading animation
 const shimmer =
