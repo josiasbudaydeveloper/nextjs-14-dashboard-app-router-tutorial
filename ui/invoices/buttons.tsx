@@ -1,7 +1,7 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { deleteInvoice, deleteCustomer } from '@/app/lib/actions';
-import darkTheme from '@/app/lib/dark-theme';
+import { deleteInvoice, deleteCustomer } from '@/lib/actions';
+import darkTheme from '@/lib/dark-theme';
 
 export function CreateInvoice() {
   return (

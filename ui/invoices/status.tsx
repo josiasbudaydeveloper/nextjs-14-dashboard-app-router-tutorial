@@ -1,6 +1,6 @@
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import darkTheme from '@/app/lib/dark-theme';
+import darkTheme from '@/lib/dark-theme';
 
 export default function InvoiceStatus({ status }: { status: string }) {
   return (

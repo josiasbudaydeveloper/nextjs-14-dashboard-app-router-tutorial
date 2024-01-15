@@ -1,18 +1,18 @@
 'use client';
  
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana } from '@/ui/fonts';
 import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/ui/button';
 import Image from 'next/image';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticateWithCredentials } from '@/app/lib/actions';
-import darkTheme from '../lib/dark-theme';
-import { authenticateWithOAuth } from '@/app/lib/actions';
+import { authenticateWithCredentials } from '@/lib/actions';
+import darkTheme from '@/lib/dark-theme';
+import { authenticateWithOAuth } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');

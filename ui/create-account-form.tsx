@@ -1,6 +1,6 @@
 'use client';
  
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana } from '@/ui/fonts';
 import {
   UserIcon,
   AtSymbolIcon,
@@ -8,10 +8,10 @@ import {
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/20/solid';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/ui/button';
 import { useFormState } from 'react-dom';
-import { createUserWithCredentials } from '@/app/lib/actions';
-import darkTheme from '../lib/dark-theme';
+import { createUserWithCredentials } from '@/lib/actions';
+import darkTheme from '@/lib/dark-theme';
 import { useRouter } from 'next/navigation';
  
 export default function LoginForm() {

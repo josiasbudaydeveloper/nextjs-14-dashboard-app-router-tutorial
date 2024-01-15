@@ -4,9 +4,9 @@ import {
   UserGroupIcon,
   InboxIcon,
 } from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts';
-import { fetchCardData } from '@/app/lib/data';
-import darkTheme from '@/app/lib/dark-theme';
+import { lusitana } from '@/ui/fonts';
+import { fetchCardData } from '@/lib/data';
+import darkTheme from '@/lib/dark-theme';
 
 const iconMap = {
   collected: BanknotesIcon,

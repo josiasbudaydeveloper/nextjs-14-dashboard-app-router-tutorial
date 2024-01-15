@@ -1,11 +1,11 @@
-import Table from '@/app/ui/customers/table';
-import { lusitana } from '@/app/ui/fonts';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
+import Table from '@/ui/customers/table';
+import { lusitana } from '@/ui/fonts';
+import { InvoicesTableSkeleton } from '@/ui/skeletons';
 import { Suspense } from 'react';
 import { Metadata } from 'next'; 
-import darkTheme from '@/app/lib/dark-theme';
-import Pagination from '@/app/ui/customers/pagination';
-import { fetchCustomersPages } from '@/app/lib/data';
+import darkTheme from '@/lib/dark-theme';
+import Pagination from '@/ui/customers/pagination';
+import { fetchCustomersPages } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'Invoices',
