@@ -34,8 +34,7 @@ const UserSchema = z.object({
   password: passwordSchema,
 });
 
-
-const FormSchema = z.object({
+const InvoicesSchema = z.object({
   id: z.string(),
   customerId: z.string({
     invalid_type_error: 'Please select a customer.',
@@ -49,9 +48,14 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
+const CustomerSchema = z.object({
+  name: nameSchema,
+  email: emailSchema
+})
+
 // Use Zod to update the expected types
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateInvoice = InvoicesSchema.omit({ id: true, date: true });
+const UpdateInvoice = InvoicesSchema.omit({ id: true, date: true });
 
 // This is temporary until @types/react-dom is updated
 export type InvoiceState = {
@@ -68,6 +72,14 @@ export type UserState = {
     name?: string[];
     email?: string[];
     password?: string[]
+  }
+  message?: string | null;
+}
+
+export type CustomerState = {
+  errors?: {
+    name?: string[];
+    email?: string[];
   }
   message?: string | null;
 }
@@ -153,6 +165,85 @@ export async function deleteInvoice(id: string) {
     return { message: 'Deleted Invoice.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
+}
+
+export async function createCustomer(prevState: CustomerState, formData: FormData) {
+  // Validate form using Zod
+  const validatedFields = CustomerSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email')
+  });
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Customer.',
+    };
+  }
+ 
+  // Prepare data for insertion into the database
+  const { name, email} = validatedFields.data;
+ 
+  // Insert data into the database
+  try {
+    await sql`
+      INSERT INTO customers (name, email)
+      VALUES (${name}, ${email})
+    `;
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+    return {
+      message: 'Database Error: Failed to Create Customer.',
+    };
+  }
+ 
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath('/dashboard/customers');
+  redirect('/dashboard/customers');
+}
+
+export async function updateCustomer(
+  id: string,
+  prevState: CustomerState,
+  formData: FormData,
+) {
+  const validatedFields = CustomerSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+  });
+ 
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update Customer.',
+    };
+  }
+ 
+  const { name, email } = validatedFields.data;
+ 
+  try {
+    await sql`
+      UPDATE customers
+      SET name = ${name}, email = ${email}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update Customer.' };
+  }
+ 
+  revalidatePath('/dashboard/customers');
+  redirect('/dashboard/customers');
+}
+
+export async function deleteCustomer(id: string) {
+  try {
+    await sql`DELETE FROM customers WHERE id = ${id}`;
+    revalidatePath('/dashboard/customers');
+    return { message: 'Deleted Customer.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Customer.' };
   }
 }
 

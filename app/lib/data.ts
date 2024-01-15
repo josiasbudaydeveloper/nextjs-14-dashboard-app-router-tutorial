@@ -7,6 +7,7 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  CustomerForm,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -256,7 +257,27 @@ export async function fetchCustomersPages(query: string) {
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch total number of invoices.');
+    throw new Error('Failed to fetch total number of customers.');
+  }
+}
+
+export async function fetchCustomerById(id: string) {
+  noStore();
+  
+  try {
+    const customer = await sql<CustomerForm>`
+      SELECT
+        id, name, email
+      FROM customers
+      WHERE id = ${id};
+    `;
+
+    return customer.rows[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    // throw new Error('Failed to fetch customer.');
+
+    return false // we can't return an error, because it can break the not-found functionality at app\dashboard\invoices\[id]\edit\not-found.tsx
   }
 }
 

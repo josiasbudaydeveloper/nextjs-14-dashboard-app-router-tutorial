@@ -1,6 +1,7 @@
 import Search from '@/app/ui/search';
 import darkTheme from '@/app/lib/dark-theme';
 import { fetchFilteredCustomers } from '@/app/lib/data';
+import { CreateCustomer, DeleteCustomer, UpdateCustomer } from '../invoices/buttons';
 
 export default async function CustomersTable({
   query,
@@ -14,8 +15,9 @@ export default async function CustomersTable({
 
   return (
     <div className="w-full">
-      <div className="mt-4 md:mt-8">
+      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search customers..." />
+        <CreateCustomer />
       </div>
 
       <div className="mt-6 flow-root">
@@ -56,6 +58,10 @@ export default async function CustomersTable({
                     </div>
                     <div className={`pt-4 text-sm ${darkTheme.title}`}>
                       <p>{customer.total_invoices} invoices</p>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <UpdateCustomer id={customer.id} />
+                      <DeleteCustomer id={customer.id} />
                     </div>
                   </div>
                 ))}
@@ -119,6 +125,12 @@ export default async function CustomersTable({
                         text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md
                         `}>
                         {customer.total_paid}
+                      </td>
+                      <td className={`whitespace-nowrap py-3 pl-6 pr-3 ${darkTheme.bg}`}>
+                        <div className="flex justify-end gap-3">
+                          <UpdateCustomer id={customer.id} />
+                          <DeleteCustomer id={customer.id} />
+                        </div>
                       </td>
                     </tr>
                   ))}
