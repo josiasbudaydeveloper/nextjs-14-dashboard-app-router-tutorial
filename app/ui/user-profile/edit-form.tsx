@@ -2,33 +2,30 @@
 
 import {
   AtSymbolIcon,
-  UserCircleIcon
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { updateCustomer } from '@/app/lib/actions';
+import { updateUser } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 import darkTheme from '@/app/lib/dark-theme';
-import { Customer } from '@/app/lib/definitions';
+import { User } from '@/app/lib/definitions';
 
-export default function EditInvoiceForm({
-  customer,
-  userEmail,
-}: {
-  customer: Customer,
-  userEmail: string
+export default function Form({ 
+  user
+} : { 
+  user: User
 }) {
-  const updateCustomerWithId = updateCustomer.bind(null, customer.id);
+
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(updateCustomerWithId, initialState);
+  const [state, dispatch] = useFormState(updateUser, initialState);
 
   return (
     <form action={dispatch}>
-      <input type="hidden" name="userEmail" value={userEmail} />
+      <input type="hidden" name="userEmail" value={user.email} />
 
       <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
         <div className="mb-4">
-          <label htmlFor="customer" className={`mb-2 block text-sm font-medium
+          <label htmlFor="name" className={`mb-2 block text-sm font-medium
             ${darkTheme.text}
           `}>
             Name: 
@@ -37,9 +34,9 @@ export default function EditInvoiceForm({
             <input
               id="name"
               name="name"
-              defaultValue={customer.name}
               type="text"
-              placeholder="Type the customer name"
+              defaultValue={user.name}
+              placeholder="Type the new user name"
               className={`peer block w-full rounded-md border border-gray-200 
                 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                 ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
@@ -50,6 +47,7 @@ export default function EditInvoiceForm({
               -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
             `}/>
           </div>
+
           <div id="name-error" aria-live="polite" aria-atomic="true">
             {state?.errors?.name &&
               state.errors.name.map((error: string) => (
@@ -60,40 +58,84 @@ export default function EditInvoiceForm({
           </div>
         </div>
 
-        {/* Invoice Amount */}
         <div className="mb-4">
-          <label htmlFor="amount" className={`mb-2 block text-sm font-medium
+          <label htmlFor="password" className={`mb-2 block text-sm font-medium
             ${darkTheme.text}
           `}>
-            Email
+            Password: 
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="email"
-                name="email"
-                defaultValue={customer.email}
-                type="mail"
-                placeholder="Enter the customer email"
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter the new user password"
                 className={`peer block w-full rounded-md border border-gray-200 
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                   ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
                 `}
-                aria-describedby="email-error"
+                aria-describedby="password-error"
               />
               <AtSymbolIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
                 ${darkTheme.inputIcon}
               `}/>
             </div>
-            <div id="amount-error" aria-live="polite" aria-atomic="true">
-              {state?.errors?.email &&
-                state.errors.email.map((error: string) => (
+
+            <div id="password-error" aria-live="polite" aria-atomic="true">
+              {state?.errors?.password &&
+                state.errors.password.map((error: string) => (
                   <p className="mt-2 text-sm text-red-500" key={error}>
                     {error}
                   </p>
                 ))}
             </div>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="theme" className={`mb-2  block text-sm font-medium
+            ${darkTheme.text}
+          `}>
+            Choose theme:
+          </label>
+          <div className="relative">
+            <select
+              id="theme"
+              name="theme"
+              className={`peer block w-full cursor-pointer rounded-md border 
+                border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
+                ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+              `}
+              defaultValue={user.theme}
+              aria-describedby="customer-error"
+            >
+              <option value="" disabled>
+                Select a theme
+              </option>
+              <option value="0">
+                Light
+              </option>
+              <option value="1">
+                Dark
+              </option>
+              <option value="2">
+                System Default
+              </option>
+            </select>
+            <UserCircleIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
+              -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+            `}/>
+          </div>
+
+          <div id="theme-error" aria-live="polite" aria-atomic="true">
+            {state?.errors?.theme &&
+              state.errors.theme.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
           </div>
         </div>
 
@@ -103,19 +145,9 @@ export default function EditInvoiceForm({
           </p>
         )}
       </div>
+
       <div className="mt-6 flex justify-end gap-4">
-        <Link
-          href="/dashboard/customers"
-          className={`
-            flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium 
-            text-gray-600 transition-colors hover:bg-gray-200
-            ${darkTheme.container} ${darkTheme.border} ${darkTheme.text}
-            ${darkTheme.hoverBg} ${darkTheme.hoverText}
-          `}
-        >
-          Cancel
-        </Link>
-        <Button type="submit">Update Customer</Button>
+        <Button type="submit">Update User</Button>
       </div>
     </form>
   );

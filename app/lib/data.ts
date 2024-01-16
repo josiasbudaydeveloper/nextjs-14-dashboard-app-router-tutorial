@@ -314,11 +314,11 @@ export async function fetchCustomerById(id: string, userEmail: string) {
   }
 }
 
-export async function getUser(email: string) {
+export async function getUser(userEmail: string) {
   noStore();
   
   try {
-    const user = await sql`SELECT * FROM users WHERE email=${email}`;
+    const user = await sql`SELECT * FROM users2 WHERE email = ${userEmail}`;
     return user.rows[0] as User;
   } catch (error) {
     console.error('Failed to fetch user:', error);

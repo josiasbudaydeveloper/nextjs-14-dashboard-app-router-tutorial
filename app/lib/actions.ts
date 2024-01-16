@@ -32,6 +32,9 @@ const UserSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
+  theme: z.coerce.number({
+    invalid_type_error: 'Please select a theme',
+  })
 });
 
 const InvoicesSchema = z.object({
@@ -72,7 +75,9 @@ export type UserState = {
   errors?: {
     name?: string[];
     email?: string[];
-    password?: string[]
+    password?: string[];
+    isoauth?: string[];
+    theme?: string[];
   }
   message?: string | null;
 }
@@ -321,4 +326,52 @@ export async function authenticateWithCredentials(
 
 export async function authenticateWithOAuth(provider: string) {
   await signIn(provider);
+}
+
+export async function updateUser(prevState: UserState, formData: FormData) {
+  
+  // Validate form using Zod
+  const validatedFields = UserSchema.safeParse({
+    name: formData.get('name'),
+    password: formData.get('password'),
+    theme: formData.get('theme'),
+    email: formData.get('userEmail')
+  });
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Update User.',
+    };
+  }
+ 
+  // Prepare data for insertion into the database
+  const { name, email, password, theme} = validatedFields.data;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+ 
+  // Insert data into the database
+  try {
+    await sql`
+      UPDATE users2
+      SET 
+        name = ${name}, 
+        password = ${hashedPassword},
+        theme = ${theme},
+        isoauth = false
+      WHERE
+        email = ${email}
+    `;
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+
+    return {
+      message: 'Database Error: Failed to Update User.',
+    };
+  }
+ 
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath('/dashboard/user-profile');
+  redirect('/dashboard/user-profile');
 }
