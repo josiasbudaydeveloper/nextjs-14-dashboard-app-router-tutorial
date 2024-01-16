@@ -94,7 +94,7 @@ export default function Form({
           </div>
         </div>
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="theme" className={`mb-2  block text-sm font-medium
             ${darkTheme.text}
           `}>
@@ -137,7 +137,7 @@ export default function Form({
                 </p>
               ))}
           </div>
-        </div>
+        </div> */}
 
         {state?.message && (
           <p className="mt-2 text-sm text-red-500"  key={state.message}>

@@ -32,9 +32,9 @@ const UserSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
-  theme: z.coerce.number({
-    invalid_type_error: 'Please select a theme',
-  })
+  // theme: z.coerce.number({
+  //   invalid_type_error: 'Please select a theme',
+  // })
 });
 
 const InvoicesSchema = z.object({
@@ -334,7 +334,7 @@ export async function updateUser(prevState: UserState, formData: FormData) {
   const validatedFields = UserSchema.safeParse({
     name: formData.get('name'),
     password: formData.get('password'),
-    theme: formData.get('theme'),
+    // theme: formData.get('theme'),
     email: formData.get('userEmail')
   });
  
@@ -347,7 +347,8 @@ export async function updateUser(prevState: UserState, formData: FormData) {
   }
  
   // Prepare data for insertion into the database
-  const { name, email, password, theme} = validatedFields.data;
+  // const { name, email, password, theme} = validatedFields.data; // If the theme is enabled
+  const { name, email, password } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
  
@@ -358,7 +359,6 @@ export async function updateUser(prevState: UserState, formData: FormData) {
       SET 
         name = ${name}, 
         password = ${hashedPassword},
-        theme = ${theme},
         isoauth = false
       WHERE
         email = ${email}
