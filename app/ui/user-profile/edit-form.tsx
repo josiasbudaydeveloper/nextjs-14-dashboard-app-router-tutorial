@@ -25,6 +25,29 @@ export default function Form({
 
       <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
         <div className="mb-4">
+          { user.password === null ? (
+              <p className={`
+                mb-2 block text-sm font-light text-red-500
+              `}>
+                So you can login with your email and password, in addition to your <br />
+                OAuth provider, you just need to define a password.
+              </p>
+            ) : (
+              <p className={`
+                mb-2 block text-sm font-medium text-green-500
+              `}>
+                You're already able to login with your credentials (Login and Password). <br /><br />
+
+                If your first login was through GitHub or Google and you  don't now <br />
+                what's your credential email, it is the same as the OAuth provider <br />
+                (GitHub or Google) account you used to login. <br /><br />
+
+                You can also change your password whatever you want on this page.
+              </p>
+          )}
+        </div>
+
+        <div className="mb-4">
           <label htmlFor="name" className={`mb-2 block text-sm font-medium
             ${darkTheme.text}
           `}>
