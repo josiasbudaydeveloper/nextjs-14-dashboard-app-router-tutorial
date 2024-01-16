@@ -3,9 +3,13 @@ import clsx from 'clsx';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchLatestInvoices } from '@/app/lib/data';
 import darkTheme from '@/app/lib/dark-theme';
+import { auth } from '@/auth';
 
 export default async function LatestInvoices() {
-  const latestInvoices = await fetchLatestInvoices();
+  const session = await auth();
+  const userEmail = session?.user?.email!;
+
+  const latestInvoices = await fetchLatestInvoices(userEmail);
 
   return (
     <div className="flex w-full flex-col md:col-span-4">

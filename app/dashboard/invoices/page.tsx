@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import { fetchInvoicesPages } from '@/app/lib/data';
 import { Metadata } from 'next'; 
 import darkTheme from '@/app/lib/dark-theme';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
   title: 'Invoices',
@@ -24,7 +25,10 @@ export default async function Page({
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchInvoicesPages(query);
+  const session = await auth();
+  const userEmail = session?.user?.email!;
+
+  const totalPages = await fetchInvoicesPages(query, userEmail);
 
   return (
     <div className="w-full">

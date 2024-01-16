@@ -50,7 +50,8 @@ const InvoicesSchema = z.object({
 
 const CustomerSchema = z.object({
   name: nameSchema,
-  email: emailSchema
+  email: emailSchema,
+  userEmail: emailSchema
 })
 
 // Use Zod to update the expected types
@@ -108,7 +109,7 @@ export async function createInvoice(prevState: InvoiceState, formData: FormData)
   // Insert data into the database
   try {
     await sql`
-      INSERT INTO invoices (customer_id, amount, status, date)
+      INSERT INTO invoices2 (customer_id, amount, status, date)
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
   } catch (error) {
@@ -146,7 +147,7 @@ export async function updateInvoice(
  
   try {
     await sql`
-      UPDATE invoices
+      UPDATE invoices2
       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
@@ -160,7 +161,7 @@ export async function updateInvoice(
 
 export async function deleteInvoice(id: string) {
   try {
-    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    await sql`DELETE FROM invoices2 WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };
   } catch (error) {
@@ -172,7 +173,8 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
   // Validate form using Zod
   const validatedFields = CustomerSchema.safeParse({
     name: formData.get('name'),
-    email: formData.get('email')
+    email: formData.get('email'),
+    userEmail: formData.get('userEmail')
   });
  
   // If form validation fails, return errors early. Otherwise, continue.
@@ -184,13 +186,13 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
   }
  
   // Prepare data for insertion into the database
-  const { name, email} = validatedFields.data;
+  const { name, email, userEmail} = validatedFields.data;
  
   // Insert data into the database
   try {
     await sql`
-      INSERT INTO customers (name, email)
-      VALUES (${name}, ${email})
+      INSERT INTO customers2 (name, email, user_email)
+      VALUES (${name}, ${email}, ${userEmail})
     `;
   } catch (error) {
     // If a database error occurs, return a more specific error.
@@ -207,11 +209,12 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
 export async function updateCustomer(
   id: string,
   prevState: CustomerState,
-  formData: FormData,
+  formData: FormData
 ) {
   const validatedFields = CustomerSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
+    userEmail: formData.get('userEmail')
   });
  
   if (!validatedFields.success) {
@@ -221,13 +224,16 @@ export async function updateCustomer(
     };
   }
  
-  const { name, email } = validatedFields.data;
+  const { name, email, userEmail } = validatedFields.data;
  
   try {
     await sql`
-      UPDATE customers
+      UPDATE customers2
       SET name = ${name}, email = ${email}
-      WHERE id = ${id}
+      WHERE
+        customers2.user_email = ${userEmail}
+      AND
+        id = ${id}
     `;
   } catch (error) {
     return { message: 'Database Error: Failed to Update Customer.' };
@@ -239,7 +245,7 @@ export async function updateCustomer(
 
 export async function deleteCustomer(id: string) {
   try {
-    await sql`DELETE FROM customers WHERE id = ${id}`;
+    await sql`DELETE FROM customers2 WHERE id = ${id}`;
     revalidatePath('/dashboard/customers');
     return { message: 'Deleted Customer.' };
   } catch (error) {

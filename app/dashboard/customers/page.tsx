@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import darkTheme from '@/app/lib/dark-theme';
 import Pagination from '@/app/ui/customers/pagination';
 import { fetchCustomersPages } from '@/app/lib/data';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
   title: 'Invoices',
@@ -22,7 +23,9 @@ export default async function Page({
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchCustomersPages(query);
+  const session = await auth();
+  const userEmail = session?.user?.email!;
+  const totalPages = await fetchCustomersPages(query, userEmail);
 
   return (
     <div className="w-full">

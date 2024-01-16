@@ -3,6 +3,7 @@ import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
 import darkTheme from '@/app/lib/dark-theme';
+import { auth } from '@/auth';
 
 export default async function InvoicesTable({
   query,
@@ -11,7 +12,10 @@ export default async function InvoicesTable({
   query: string;
   currentPage: number;
 }) {
-  const invoices = await fetchFilteredInvoices(query, currentPage);
+  const session = await auth();
+  const userEmail = session?.user!.email!;
+
+  const invoices = await fetchFilteredInvoices(query, currentPage, userEmail);
 
   return (
     <div className="mt-6 flow-root">

@@ -12,9 +12,11 @@ import darkTheme from '@/app/lib/dark-theme';
 import { Customer } from '@/app/lib/definitions';
 
 export default function EditInvoiceForm({
-  customer
+  customer,
+  userEmail,
 }: {
-  customer: Customer
+  customer: Customer,
+  userEmail: string
 }) {
   const updateCustomerWithId = updateCustomer.bind(null, customer.id);
   const initialState = { message: null, errors: {} };
@@ -22,6 +24,8 @@ export default function EditInvoiceForm({
 
   return (
     <form action={dispatch}>
+      <input type="hidden" name="userEmail" value={userEmail} />
+
       <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="customer" className={`mb-2 block text-sm font-medium

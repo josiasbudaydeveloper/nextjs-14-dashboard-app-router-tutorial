@@ -7,6 +7,7 @@ import {
 import { lusitana } from '@/app/ui/fonts';
 import { fetchCardData } from '@/app/lib/data';
 import darkTheme from '@/app/lib/dark-theme';
+import { auth } from '@/auth';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -16,12 +17,15 @@ const iconMap = {
 };
 
 export default async function CardWrapper() {
+  const session = await auth();
+  const userEmail = session?.user?.email!;
+
   const {
     numberOfInvoices,
     numberOfCustomers,
     totalPaidInvoices,
     totalPendingInvoices,
-  } = await fetchCardData();
+  } = await fetchCardData(userEmail);
 
   return (
     <>

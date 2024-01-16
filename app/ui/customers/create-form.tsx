@@ -11,12 +11,19 @@ import { createCustomer } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 import darkTheme from '@/app/lib/dark-theme';
 
-export default function Form() {
+export default function Form({ 
+  userEmail
+} : { 
+  userEmail: string
+}) {
+
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createCustomer, initialState);
 
   return (
     <form action={dispatch}>
+      <input type="hidden" name="userEmail" value={userEmail} />
+
       <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="customer" className={`mb-2 block text-sm font-medium

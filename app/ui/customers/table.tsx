@@ -2,6 +2,7 @@ import Search from '@/app/ui/search';
 import darkTheme from '@/app/lib/dark-theme';
 import { fetchFilteredCustomers } from '@/app/lib/data';
 import { CreateCustomer, DeleteCustomer, UpdateCustomer } from '../invoices/buttons';
+import { auth } from '@/auth';
 
 export default async function CustomersTable({
   query,
@@ -10,8 +11,9 @@ export default async function CustomersTable({
   query: string;
   currentPage: number;
 }) {
-
-  const customers = await fetchFilteredCustomers(query, currentPage);
+  const session = await auth();
+  const userEmail = session?.user!.email!;
+  const customers = await fetchFilteredCustomers(query, currentPage, userEmail);
 
   return (
     <div className="w-full">
