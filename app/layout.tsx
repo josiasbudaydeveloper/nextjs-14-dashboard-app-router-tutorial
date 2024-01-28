@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     default: 'Acme Dashboard',
   },
   metadataBase: new URL('https://josiasbudaydeveloper-next-14-dashboard-app.vercel.app/'),
-  description: 'The official Next.js Learn Dashboard built with App Router.',
+  description: 'A Dashboard App where users can create an account (with their credentials or using an OAuth provider), create customers and assign invoices to them. Invoices will be shown at the Dashboard page as a summary. This project is based on the Next Learn Course, the official Next.js 14 tutorial and created by Vercel.',
   openGraph: {
-    title: 'Next.js 14 Tutorial: Dashboard App',
-    description: 'The official Next.js Learn Dashboard built with App Router.',
+    title: 'Dashboard App, created by Vercel and modified by Josias Buday Developer',
+    description: 'A Dashboard App where users can create an account (with their credentials or using an OAuth provider), create customers and assign invoices to them. Invoices will be shown at the Dashboard page as a summary. This project is based on the Next Learn Course, the official Next.js 14 tutorial and created by Vercel.',
     siteName: 'Acme Dashboard',
     locale: 'en_US'
   }
