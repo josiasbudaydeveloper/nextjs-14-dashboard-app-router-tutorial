@@ -36,10 +36,10 @@ export default function Form({
               <p className={`
                 mb-2 block text-sm font-medium text-green-500
               `}>
-                You're already able to login with your credentials (Login and Password). <br /><br />
+                You&apos;re already able to login with your credentials (Login and Password). <br /><br />
 
-                If your first login was through GitHub or Google and you  don't now <br />
-                what's your credential email, it is the same as the OAuth provider <br />
+                If your first login was through GitHub or Google and you  don&apos;t now <br />
+                what&apos;s your credential email, it is the same as the OAuth provider <br />
                 (GitHub or Google) account you used to login. <br /><br />
 
                 You can also change your password whatever you want on this page.
