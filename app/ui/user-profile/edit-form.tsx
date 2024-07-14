@@ -42,7 +42,7 @@ export default function Form({
                 what&apos;s your credential email, it is the same as the OAuth provider <br />
                 (GitHub or Google) account you used to login. <br /><br />
 
-                You can also change your password whatever you want on this page.
+                You can also change your password whener you want on this page.
               </p>
           )}
         </div>
