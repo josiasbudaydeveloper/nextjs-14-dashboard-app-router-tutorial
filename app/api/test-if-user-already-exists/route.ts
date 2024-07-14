@@ -13,7 +13,7 @@ export async function GET(req: any) {
 
   if (session) {
     const { name, email } = session.user as AccountUser;
-    const user = await sql`SELECT * FROM users2 where email = ${email}`;
+    const user = await sql`SELECT * FROM users where email = ${email}`;
 
     if (!user.rowCount) {
       try {
