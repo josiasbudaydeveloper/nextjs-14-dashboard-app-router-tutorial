@@ -18,7 +18,7 @@ export async function GET(req: any) {
     if (!user.rowCount) {
       try {
         await sql`
-          INSERT INTO users2 (name, email, isoauth) 
+          INSERT INTO users (name, email, isoauth) 
           VALUES (${name}, ${email}, ${true})
         `
       } catch(error) {
