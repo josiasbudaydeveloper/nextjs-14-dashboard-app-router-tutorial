@@ -31,7 +31,7 @@ const passwordSchema = z.string().regex(passwordRegex, `
 const UserSchema = z.object({
   name: nameSchema,
   email: emailSchema,
-  password: passwordSchema,
+  password: passwordSchema
   // theme: z.coerce.number({
   //   invalid_type_error: 'Please select a theme',
   // })
@@ -76,6 +76,7 @@ export type UserState = {
     name?: string[];
     email?: string[];
     password?: string[];
+    confirmPassword?: string[];
     isoauth?: string[];
     theme?: string[];
   }
@@ -114,7 +115,7 @@ export async function createInvoice(prevState: InvoiceState, formData: FormData)
   // Insert data into the database
   try {
     await sql`
-      INSERT INTO invoices2 (customer_id, amount, status, date)
+      INSERT INTO invoices (customer_id, amount, status, date)
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
   } catch (error) {
@@ -152,7 +153,7 @@ export async function updateInvoice(
  
   try {
     await sql`
-      UPDATE invoices2
+      UPDATE invoices
       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
@@ -166,7 +167,7 @@ export async function updateInvoice(
 
 export async function deleteInvoice(id: string) {
   try {
-    await sql`DELETE FROM invoices2 WHERE id = ${id}`;
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };
   } catch (error) {
@@ -196,7 +197,7 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
   // Insert data into the database
   try {
     await sql`
-      INSERT INTO customers2 (name, email, user_email)
+      INSERT INTO customers (name, email, user_email)
       VALUES (${name}, ${email}, ${userEmail})
     `;
   } catch (error) {
@@ -233,10 +234,10 @@ export async function updateCustomer(
  
   try {
     await sql`
-      UPDATE customers2
+      UPDATE customers
       SET name = ${name}, email = ${email}
       WHERE
-        customers2.user_email = ${userEmail}
+        customers.user_email = ${userEmail}
       AND
         id = ${id}
     `;
@@ -250,7 +251,7 @@ export async function updateCustomer(
 
 export async function deleteCustomer(id: string) {
   try {
-    await sql`DELETE FROM customers2 WHERE id = ${id}`;
+    await sql`DELETE FROM customers WHERE id = ${id}`;
     revalidatePath('/dashboard/customers');
     return { message: 'Deleted Customer.' };
   } catch (error) {
@@ -286,7 +287,7 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
   }
 
   try {
-    await sql`INSERT INTO users2 (name, email, password, isoauth) VALUES
+    await sql`INSERT INTO users (name, email, password, isoauth) VALUES
      (${name}, ${email}, ${hashedPassword}, ${false})`;
   } catch (error) {
     console.log(`
@@ -328,12 +329,16 @@ export async function authenticateWithOAuth(provider: string) {
   await signIn(provider);
 }
 
-export async function updateUser(prevState: UserState, formData: FormData) {
+export async function updateUser(
+  prevState: UserState, 
+  formData: FormData
+) {
   
   // Validate form using Zod
   const validatedFields = UserSchema.safeParse({
     name: formData.get('name'),
     password: formData.get('password'),
+    confirmPassword: formData.get('confirm-password'),
     // theme: formData.get('theme'),
     email: formData.get('userEmail')
   });
@@ -349,13 +354,21 @@ export async function updateUser(prevState: UserState, formData: FormData) {
   // Prepare data for insertion into the database
   // const { name, email, password, theme} = validatedFields.data; // If the theme is enabled
   const { name, email, password } = validatedFields.data;
+  
+  const confirmPassword = formData.get('confirm-password');
+  if (password != confirmPassword) {
+    return {
+      message: 'Passwords are different'
+    }
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
  
   // Insert data into the database
   try {
     await sql`
-      UPDATE users2
+      UPDATE users
       SET 
         name = ${name}, 
         password = ${hashedPassword},
