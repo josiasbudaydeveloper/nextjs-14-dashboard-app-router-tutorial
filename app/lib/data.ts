@@ -42,12 +42,12 @@ export async function fetchLatestInvoices(userEmail: string) {
   
   try {
     const data = await sql<LatestInvoiceRaw>`
-      SELECT invoices2.amount, customers2.name, customers2.email, invoices2.id
-      FROM invoices2
-      JOIN customers2 ON invoices2.customer_id = customers2.id
+      SELECT invoices.amount, customers.name, customers.email, invoices.id
+      FROM invoices
+      JOIN customers ON invoices.customer_id = customers.id
       WHERE
-        customers2.user_email = ${userEmail}
-      ORDER BY invoices2.date DESC
+        customers.user_email = ${userEmail}
+      ORDER BY invoices.date DESC
       LIMIT 5`;
 
     const latestInvoices = data.rows.map((invoice) => ({
@@ -72,25 +72,25 @@ export async function fetchCardData(userEmail: string) {
       SELECT 
         COUNT(*) 
       FROM 
-        invoices2
+        invoices
       JOIN 
-        customers2 ON invoices2.customer_id = customers2.id
+        customers ON invoices.customer_id = customers.id
       WHERE 
-        customers2.user_email = ${userEmail}`;
+        customers.user_email = ${userEmail}`;
 
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers2
-      WHERE customers2.user_email = ${userEmail};`;
+    const customerCountPromise = sql`SELECT COUNT(*) FROM customers
+      WHERE customers.user_email = ${userEmail};`;
 
     const invoiceStatusPromise = sql`
     SELECT
       SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
       SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
     FROM 
-      invoices2
+      invoices
     JOIN 
-      customers2 ON invoices2.customer_id = customers2.id
+      customers ON invoices.customer_id = customers.id
     WHERE 
-      customers2.user_email = ${userEmail}`;
+      customers.user_email = ${userEmail}`;
 
     const data = await Promise.all([
       invoiceCountPromise,
@@ -127,22 +127,22 @@ export async function fetchFilteredInvoices(
   try {
     const invoices = await sql<InvoicesTable>`
       SELECT
-        invoices2.id,
-        invoices2.amount,
-        invoices2.date,
-        invoices2.status,
-        customers2.name,
-        customers2.email
-      FROM invoices2
-      JOIN customers2 ON invoices2.customer_id = customers2.id
+        invoices.id,
+        invoices.amount,
+        invoices.date,
+        invoices.status,
+        customers.name,
+        customers.email
+      FROM invoices
+      JOIN customers ON invoices.customer_id = customers.id
       WHERE
-        customers2.user_email = ${userEmail} AND
-        (customers2.name ILIKE ${`%${query}%`} OR
-        customers2.email ILIKE ${`%${query}%`} OR
-        invoices2.amount::text ILIKE ${`%${query}%`} OR
-        invoices2.date::text ILIKE ${`%${query}%`} OR
-        invoices2.status ILIKE ${`%${query}%`})
-      ORDER BY invoices2.date DESC
+        customers.user_email = ${userEmail} AND
+        (customers.name ILIKE ${`%${query}%`} OR
+        customers.email ILIKE ${`%${query}%`} OR
+        invoices.amount::text ILIKE ${`%${query}%`} OR
+        invoices.date::text ILIKE ${`%${query}%`} OR
+        invoices.status ILIKE ${`%${query}%`})
+      ORDER BY invoices.date DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -158,15 +158,15 @@ export async function fetchInvoicesPages(query: string, userEmail: string) {
   
   try {
     const count = await sql`SELECT COUNT(*)
-    FROM invoices2
-    JOIN customers2 ON invoices2.customer_id = customers2.id
+    FROM invoices
+    JOIN customers ON invoices.customer_id = customers.id
     WHERE
-      customers2.user_email = ${userEmail} AND 
-      (customers2.name ILIKE ${`%${query}%`} OR
-      customers2.email ILIKE ${`%${query}%`} OR
-      invoices2.amount::text ILIKE ${`%${query}%`} OR
-      invoices2.date::text ILIKE ${`%${query}%`} OR
-      invoices2.status ILIKE ${`%${query}%`})
+      customers.user_email = ${userEmail} AND 
+      (customers.name ILIKE ${`%${query}%`} OR
+      customers.email ILIKE ${`%${query}%`} OR
+      invoices.amount::text ILIKE ${`%${query}%`} OR
+      invoices.date::text ILIKE ${`%${query}%`} OR
+      invoices.status ILIKE ${`%${query}%`})
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
@@ -183,18 +183,18 @@ export async function fetchInvoiceById(id: string, userEmail: string) {
   try {
     const data = await sql<InvoiceForm>`
       SELECT
-        invoices2.id,
-        invoices2.customer_id,
-        invoices2.amount,
-        invoices2.status
+        invoices.id,
+        invoices.customer_id,
+        invoices.amount,
+        invoices.status
       FROM 
-        invoices2 
+        invoices 
       JOIN 
-        customers2 ON invoices2.customer_id = customers2.id
+        customers ON invoices.customer_id = customers.id
       WHERE 
-        customers2.user_email = ${userEmail} 
+        customers.user_email = ${userEmail} 
       AND
-        invoices2.id = ${id};  
+        invoices.id = ${id};  
     `;
 
     const invoice = data.rows.map((invoice) => ({
@@ -220,8 +220,8 @@ export async function fetchCustomers(userEmail: string) {
       SELECT
         id,
         name
-      FROM customers2
-      where customers2.user_email = ${userEmail}
+      FROM customers
+      where customers.user_email = ${userEmail}
       ORDER BY name ASC
     `;
 
@@ -241,20 +241,20 @@ export async function fetchFilteredCustomers(query: string, currentPage: number,
   try {
     const data = await sql<CustomersTableType>`
 		SELECT
-		  customers2.id,
-		  customers2.name,
-		  customers2.email,
-		  COUNT(invoices2.id) AS total_invoices,
-		  SUM(CASE WHEN invoices2.status = 'pending' THEN invoices2.amount ELSE 0 END) AS total_pending,
-		  SUM(CASE WHEN invoices2.status = 'paid' THEN invoices2.amount ELSE 0 END) AS total_paid
-		FROM customers2
-		LEFT JOIN invoices2 ON customers2.id = invoices2.customer_id
+		  customers.id,
+		  customers.name,
+		  customers.email,
+		  COUNT(invoices.id) AS total_invoices,
+		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
+		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
+		FROM customers
+		LEFT JOIN invoices ON customers.id = invoices.customer_id
 		WHERE
-      customers2.user_email = ${userEmail} AND
-		  (customers2.name ILIKE ${`%${query}%`} OR
-      customers2.email ILIKE ${`%${query}%`})
-		GROUP BY customers2.id, customers2.name, customers2.email, customers2
-		ORDER BY customers2.name ASC
+      customers.user_email = ${userEmail} AND
+		  (customers.name ILIKE ${`%${query}%`} OR
+      customers.email ILIKE ${`%${query}%`})
+		GROUP BY customers.id, customers.name, customers.email, customers
+		ORDER BY customers.name ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 
@@ -276,11 +276,11 @@ export async function fetchCustomersPages(query: string, userEmail: string) {
   
   try {
     const count = await sql`SELECT COUNT(*)
-    FROM customers2
+    FROM customers
     WHERE
-      customers2.user_email = ${userEmail} AND
-      (customers2.name ILIKE ${`%${query}%`} OR
-      customers2.email ILIKE ${`%${query}%`})
+      customers.user_email = ${userEmail} AND
+      (customers.name ILIKE ${`%${query}%`} OR
+      customers.email ILIKE ${`%${query}%`})
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
@@ -298,9 +298,9 @@ export async function fetchCustomerById(id: string, userEmail: string) {
     const customer = await sql<CustomerForm>`
       SELECT
         id, name, email
-      FROM customers2
+      FROM customers
       WHERE
-        customers2.user_email = ${userEmail} 
+        customers.user_email = ${userEmail} 
           AND
         id = ${id};
     `;
@@ -318,7 +318,7 @@ export async function getUser(userEmail: string) {
   noStore();
   
   try {
-    const user = await sql`SELECT * FROM users2 WHERE email = ${userEmail}`;
+    const user = await sql`SELECT * FROM users WHERE email = ${userEmail}`;
     return user.rows[0] as User;
   } catch (error) {
     console.error('Failed to fetch user:', error);
