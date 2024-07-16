@@ -105,6 +105,7 @@ export default function LoginForm() {
       </form>
 
       <CreateAccount />
+      <ForgotPassword />
 
       <p className={`
         ${darkTheme.text} pb-2 pt-[9px] text-center
@@ -138,6 +139,20 @@ function CreateAccount() {
       replace('/create-account');
     }}>
       Create Account <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+    </Button>
+  );
+}
+
+function ForgotPassword() {
+  const { pending } = useFormStatus();
+  
+  const { replace } = useRouter();
+ 
+  return (
+    <Button className="mt-2 w-full" aria-disabled={pending} onClick={() => {
+      replace('/forgot');
+    }}>
+      Forgot password? <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }

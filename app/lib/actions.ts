@@ -7,6 +7,9 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import type { User } from '@/app/lib/definitions';
 
 // A regular expression to check for valid email format
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -89,6 +92,10 @@ export type CustomerState = {
     email?: string[];
   }
   message?: string | null;
+}
+
+type ResetPasswordToken = {
+  email: string;
 }
 
 export async function createInvoice(prevState: InvoiceState, formData: FormData) {
@@ -338,7 +345,6 @@ export async function updateUser(
   const validatedFields = UserSchema.safeParse({
     name: formData.get('name'),
     password: formData.get('password'),
-    confirmPassword: formData.get('confirm-password'),
     // theme: formData.get('theme'),
     email: formData.get('userEmail')
   });
@@ -387,4 +393,101 @@ export async function updateUser(
   // Revalidate the cache for the invoices page and redirect the user.
   revalidatePath('/dashboard/user-profile');
   redirect('/dashboard/user-profile');
+}
+
+export async function forgotPassword(
+  prevState: string | undefined, 
+  formData: FormData) 
+{ 
+  const email = formData.get('email');
+  const resetToken = jwt.sign({
+    email
+  },
+    process.env.AUTH_SECRET!, 
+    {
+      algorithm: 'HS256',
+      expiresIn: '30min'
+    }
+  );
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GOOGLE_ACCOUNT!, // Your Gmail email address
+      pass: process.env.GOOGLE_APP_PASSWORD!, // The app password you generated
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from: process.env.GOOGLE_ACCOUNT!, // Same as the 'user' above
+      to: email as string, // Recipient email(s)
+      subject: 'Your password reset link', // Subject of the email
+      text: `Click the link to reset your password: ${process.env.BASE_URL}/reset-password/${resetToken}`, // Customize the email content
+    });
+  } catch(error) {
+    console.log(error);
+    return "Something went wrong.";
+  }
+
+  redirect(`/forgot/instructions/${email}`);
+}
+
+export async function resetPassword(
+  token: string,
+  prevState: string | undefined, 
+  formData: FormData
+) {
+  // checking whether the token is still valid
+  try {
+    var decoded = jwt.verify(token, process.env.AUTH_SECRET!) as ResetPasswordToken;
+  } catch(error) {
+    console.log(error);
+    return 'This token is invalid or it has expired.';
+  }
+
+  // checking whether there is an user with this email
+  const email = decoded.email;
+  try {
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    if (!user.rows[0]) {
+      return `There's no user with this email: ${email}`;
+    }
+  } catch(error) {
+    console.log('Something went wrong.');
+    return 'Something went wrong.';
+  }
+
+  // updating the password
+  const ValidatePassword = passwordSchema.safeParse(formData.get('password'));
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!ValidatePassword.success) {
+    return  'Passwords must have at least 8 characters,' + 
+      'one special character, one upper case letter and one lower case letter.';
+  }
+
+  // Insert data into the database
+  const password = ValidatePassword.data;
+  const confirmPassword = formData.get('confirm-password');
+  if (password != confirmPassword) {
+    return 'Passwords are different.';
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    await sql`
+      UPDATE users
+      SET 
+        password = ${hashedPassword}
+      WHERE
+        email = ${email}
+    `;
+  } catch (error) {
+    console.log(error);
+
+    return 'Database Error: Failed to Update User.';
+  }
+
+  redirect('/login');
 }
