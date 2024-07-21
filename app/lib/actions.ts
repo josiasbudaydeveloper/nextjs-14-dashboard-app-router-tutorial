@@ -26,7 +26,7 @@ const emailSchema = z.string().regex(emailRegex, "Invalid email format");
 
 // A Zod schema for the password field
 const passwordSchema = z.string().regex(passwordRegex, `
-  The password didn't match the minimum security requirements.
+  The password does not meet the minimum security requirements.
 `);
 
 // A Zod schema for the object with name, email and password fields
