@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function LoginPage({params}: {params: {email: string}}) {
   let email = params.email.replace('%40','@');
   return (
-    <main className="flex items-center justify-end md:h-screen">
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
+    <main className="flex items-center justify-end">
+      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4">
         <div className="flex h-40 w-full items-end rounded-lg bg-blue-500 p-3 md:h-36">
           <div className="w-32 text-white md:w-36">
             <AcmeLogo />
