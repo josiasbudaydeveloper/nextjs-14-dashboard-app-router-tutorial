@@ -160,13 +160,13 @@ export default function LoginForm() {
           <div
             className={`
               flex items-end space-x-1
-              ${(state.message == 'Missing or wrong fields. Failed to create Account.') ? 'h-8' : 'h-4'} 
+              ${(state.message == 'Passwords are different.') ? 'h-4' : 'h-8'} 
               `}
             aria-live="polite"
             aria-atomic="true"
           >
             <ExclamationCircleIcon className={`
-              ${(state.message == 'Missing or wrong fields. Failed to create Account.') ? 'h-10' : 'h-5'} 
+              ${(state.message == 'Passwords are different.') ? 'h-5' : 'h-10'} 
               w-5 text-red-500
             `} />
             <p className="text-sm text-red-500">{state.message}</p>

@@ -296,7 +296,7 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
 
   if (account.rowCount) {
     return {
-      message: `${account.rowCount} This email address is already in use, please use another one!`
+      message: `This email address is already in use, please use another one!`
     }
   }
 
