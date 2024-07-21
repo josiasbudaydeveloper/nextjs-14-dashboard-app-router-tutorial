@@ -80,7 +80,6 @@ export type UserState = {
     password?: string[];
     confirmPassword?: string[];
     isoauth?: string[];
-    theme?: string[];
   }
   message?: string | null;
 }
