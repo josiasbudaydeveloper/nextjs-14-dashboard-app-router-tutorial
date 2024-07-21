@@ -283,6 +283,13 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
   }
 
   const { name, email, password } = validatedFields.data;
+  const confirmPassword = formData.get('confirm-password');
+  if (password != confirmPassword) {
+    return {
+      message: 'Passwords are different.'
+    };
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const account = await sql`SELECT * FROM users2 WHERE email=${email}`;
