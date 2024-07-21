@@ -292,7 +292,7 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const account = await sql`SELECT * FROM users2 WHERE email=${email}`;
+  const account = await sql`SELECT * FROM users WHERE email=${email}`;
 
   if (account.rowCount) {
     return {
