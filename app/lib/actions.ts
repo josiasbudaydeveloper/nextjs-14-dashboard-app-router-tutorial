@@ -26,8 +26,7 @@ const emailSchema = z.string().regex(emailRegex, "Invalid email format");
 
 // A Zod schema for the password field
 const passwordSchema = z.string().regex(passwordRegex, `
-  Password must have at least 8 characters, 
-  one special character, one upper case letter and one lower case letter
+  The password didn't match the minimum security requirements.
 `);
 
 // A Zod schema for the object with name, email and password fields
@@ -450,7 +449,7 @@ export async function resetPassword(
     var decoded = jwt.verify(token, process.env.AUTH_SECRET!) as ResetPasswordToken;
   } catch(error) {
     console.log(error);
-    return 'This token is invalid or it has expired.';
+    return 'This token is invalid or has expired.';
   }
 
   // checking whether there is an user with this email

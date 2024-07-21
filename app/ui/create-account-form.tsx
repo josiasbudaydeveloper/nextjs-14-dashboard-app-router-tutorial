@@ -29,7 +29,7 @@ export default function LoginForm() {
         <div className="w-full">
           <div>
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
               htmlFor="name"
             >
               Name:
@@ -62,7 +62,7 @@ export default function LoginForm() {
           </div>
           <div>
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
               htmlFor="email"
             >
               Email:
@@ -95,11 +95,15 @@ export default function LoginForm() {
           </div>
           <div className="mt-4">
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
               htmlFor="password"
             >
               Password:
             </label>
+            <p className={`mb-3 block text-xs font-medium text-gray-900 ${darkTheme.text}`}>
+              The password must have at least 8 characters, 
+              one special character, one upper case letter and one lower case letter.
+            </p>
             <div className="relative">
               <input
                 className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border}

@@ -21,11 +21,17 @@ export default function Form({token} :
 		<form action={dispatch}>
 			<div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
 				<div className="mb-4">
-					<label htmlFor="password" className={`mb-2 block text-sm font-medium
+					<label htmlFor="password" className={`block text-sm font-medium
 						${darkTheme.text}
 					`}>
 						Password: 
 					</label>
+					<p className={`mb-2 block text-xs font-medium
+						${darkTheme.text}
+					`}>
+						The password must have at least 8 characters, 
+						one special character, one upper case letter and one lower case letter.
+					</p>
 					<div className="relative mt-2 rounded-md">
 						<div className="relative">
 							<input
@@ -47,7 +53,7 @@ export default function Form({token} :
 					</div>
 				</div>
 
-				<div className="mb-4">
+				<div>
 					<label htmlFor="confirm-password" className={`mb-2 block text-sm font-medium
 						${darkTheme.text}
 					`}>
