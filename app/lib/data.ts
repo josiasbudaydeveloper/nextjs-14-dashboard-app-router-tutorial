@@ -15,6 +15,15 @@ import { auth } from '@/auth';
 
 const ITEMS_PER_PAGE = 6;
 
+(async ()=> {
+  // automatically deleting registries that has more than 1 week of existence
+  try {
+    await sql`DELETE FROM users WHERE creation_date < NOW() - INTERVAL '1 week';`;
+  } catch(error) {
+    console.log(error);
+  }
+})();
+
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
