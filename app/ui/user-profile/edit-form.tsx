@@ -29,7 +29,9 @@ export default function Form({
               <p className={`
                 mb-2 block text-sm font-light text-red-500
               `}>
-                So you can login with your email and password, in addition to your <br />
+                To allow you to login with your credentials (email and password),
+                <br />
+                in addition to your 
                 OAuth provider, you just need to define a password.
               </p>
             ) : (

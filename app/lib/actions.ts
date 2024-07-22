@@ -289,7 +289,6 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
   const account = await sql`SELECT * FROM users WHERE email=${email}`;
 
   if (account.rowCount) {
@@ -298,9 +297,10 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
     }
   }
 
+  const date = new Date().toISOString().split('T')[0];
   try {
-    await sql`INSERT INTO users (name, email, password, isoauth) VALUES
-     (${name}, ${email}, ${hashedPassword}, ${false})`;
+    await sql`INSERT INTO users (name, email, password, isoauth, creation_date) VALUES
+     (${name}, ${email}, ${hashedPassword}, ${false}, ${date})`;
   } catch (error) {
     console.log(`
       Database Error: Failed to create account:
@@ -325,7 +325,9 @@ export async function authenticateWithCredentials(
   try {
     await signIn('credentials', formData);
   } catch (error) {
+    console.log('batata');
     if (error instanceof AuthError) {
+      console.log(error.type);
       switch (error.type) {
         case 'CredentialsSignin':
           return 'Invalid credentials.';

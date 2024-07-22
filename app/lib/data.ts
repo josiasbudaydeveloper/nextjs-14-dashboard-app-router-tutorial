@@ -11,8 +11,18 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+import { auth } from '@/auth';
 
 const ITEMS_PER_PAGE = 6;
+
+(async ()=> {
+  // automatically deleting registries that has more than 1 week of existence
+  try {
+    await sql`DELETE FROM users WHERE creation_date < NOW() - INTERVAL '1 week';`;
+  } catch(error) {
+    console.log(error);
+  }
+})();
 
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
@@ -25,8 +35,33 @@ export async function fetchRevenue() {
 
     // console.log('Fetching revenue data...');
     // await new Promise((resolve) => setTimeout(resolve, 3000));
+    const session = await auth();
+    const userEmail = session?.user?.email!;
 
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
+    const data = await sql<Revenue>`
+      SELECT SUM(i.amount) AS revenue,
+       CASE EXTRACT(MONTH FROM i.date)
+           WHEN 1 THEN 'Jan'
+           WHEN 2 THEN 'Feb'
+           WHEN 3 THEN 'Mar'
+           WHEN 4 THEN 'Apr'
+           WHEN 5 THEN 'May'
+           WHEN 6 THEN 'Jun'
+           WHEN 7 THEN 'Jul'
+           WHEN 8 THEN 'Aug'
+           WHEN 9 THEN 'Sep'
+           WHEN 10 THEN 'Oct'
+           WHEN 11 THEN 'Nov'
+           WHEN 12 THEN 'Dec'
+            END AS month
+      FROM invoices AS i
+      INNER JOIN customers AS c ON i.customer_id = c.id
+      WHERE c.user_email = ${userEmail}
+        AND i.status = 'paid'
+        AND EXTRACT(YEAR FROM i.date) = EXTRACT(YEAR FROM CURRENT_DATE)
+      GROUP BY EXTRACT(MONTH FROM i.date)
+      ORDER BY month;
+      `;
 
     // console.log('Data fetch completed after 3 seconds.');
 
