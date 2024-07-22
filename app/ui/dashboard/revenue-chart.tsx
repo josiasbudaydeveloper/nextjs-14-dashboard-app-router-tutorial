@@ -13,6 +13,10 @@ import darkTheme from '@/app/lib/dark-theme';
 
 export default async function RevenueChart() {
   const revenue: Revenue[] = await fetchRevenue();
+  for (let i in revenue) {
+    revenue[i].revenue = revenue[i].revenue / 100;
+  }
+  console.log(revenue);
 
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
@@ -52,6 +56,7 @@ export default async function RevenueChart() {
                 style={{
                   height: `${(chartHeight / topLabel) * month.revenue}px`,
                 }}
+                title={`$: ${month.revenue}`}
               ></div>
               <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
                 {month.month}
@@ -61,7 +66,7 @@ export default async function RevenueChart() {
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
-          <h3 className="ml-2 text-sm text-gray-500 ">Last 12 months</h3>
+          <h3 className="ml-2 text-sm text-gray-500 ">From the current year</h3>
         </div>
       </div>
     </div>
