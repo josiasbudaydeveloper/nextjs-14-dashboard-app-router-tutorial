@@ -325,7 +325,6 @@ export async function authenticateWithCredentials(
   try {
     await signIn('credentials', formData);
   } catch (error) {
-    console.log('batata');
     if (error instanceof AuthError) {
       console.log(error.type);
       switch (error.type) {
