@@ -16,7 +16,6 @@ export default async function RevenueChart() {
   for (let i in revenue) {
     revenue[i].revenue = revenue[i].revenue / 100;
   }
-  console.log(revenue);
 
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
