@@ -9,6 +9,10 @@ import { updateUser } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 import darkTheme from '@/app/lib/dark-theme';
 import { User } from '@/app/lib/definitions';
+import { useSearchParams } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 export default function Form({ 
   user
@@ -19,8 +23,18 @@ export default function Form({
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(updateUser, initialState);
 
+  const searchParams = useSearchParams();
+  const updatedUser = searchParams.get('user-updated');
+
+  useEffect(() => {
+    if (updatedUser) {
+      toast.success("User updated successfully!!");
+    }
+  });
+
   return (
     <form action={dispatch}>
+      <ToastContainer theme="colored" />
       <input type="hidden" name="userEmail" value={user.email} />
 
       <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
@@ -84,11 +98,16 @@ export default function Form({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className={`mb-2 block text-sm font-medium
-            ${darkTheme.text}
-          `}>
-            Password: 
+        <label
+            className={`mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
+            htmlFor="password"
+          >
+            Password:
           </label>
+          <p className={`mb-3 block text-xs font-medium text-gray-900 ${darkTheme.text}`}>
+            The password must have at least 8 characters, <br /> 
+            one special character, one upper case letter and one lower case letter.
+          </p>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input

@@ -14,6 +14,10 @@ import { authenticateWithCredentials } from '@/app/lib/actions';
 import darkTheme from '../lib/dark-theme';
 import { authenticateWithOAuth } from '@/app/lib/actions';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
 // const GoogleSignIn = authenticateWithOAuth.bind(null, 'google');
@@ -27,10 +31,26 @@ function GoogleSignIn() {
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticateWithCredentials, undefined);
 
+  const searchParams = useSearchParams();
+  const params = {
+    accountCreated: searchParams.get('account-created'),
+    passwordUpdated: searchParams.get('password-updated') 
+  };
+
+  useEffect(() => {
+    if (params.accountCreated) {
+      toast.success("Account created successfully!!");
+    }
+    if (params.passwordUpdated) {
+      toast.success("Password updated successfully!!");
+    }
+  }, []);
+
   return (
     <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
         px-6 pb-4 pt-8
       ">
+        <ToastContainer theme="colored" />
         <h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title}`}>
           Please log in to continue.
         </h1>
