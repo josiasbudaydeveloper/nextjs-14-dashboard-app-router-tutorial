@@ -2,7 +2,6 @@
 
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
@@ -129,9 +128,7 @@ export async function createInvoice(prevState: InvoiceState, formData: FormData)
       message: 'Database Error: Failed to Create Invoice.',
     };
   }
- 
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/invoices');
+
   redirect('/dashboard/invoices');
 }
 
@@ -166,14 +163,12 @@ export async function updateInvoice(
     return { message: 'Database Error: Failed to Update Invoice.' };
   }
  
-  revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
 
 export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Invoice.' };
@@ -212,8 +207,6 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
     };
   }
  
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/customers');
   redirect('/dashboard/customers');
 }
 
@@ -250,14 +243,12 @@ export async function updateCustomer(
     return { message: 'Database Error: Failed to Update Customer.' };
   }
  
-  revalidatePath('/dashboard/customers');
   redirect('/dashboard/customers');
 }
 
 export async function deleteCustomer(id: string) {
   try {
     await sql`DELETE FROM customers WHERE id = ${id}`;
-    revalidatePath('/dashboard/customers');
     return { message: 'Deleted Customer.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Customer.' };
@@ -314,7 +305,7 @@ export async function createUserWithCredentials(prevState: UserState, formData: 
     }
   }
   
-  redirect('/login');
+  redirect('/login?account-created=true');
 }
 
 export async function authenticateWithCredentials(
@@ -396,9 +387,7 @@ export async function updateUser(
     };
   }
  
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/user-profile');
-  redirect('/dashboard/user-profile');
+  redirect('/dashboard/user-profile?user-updated=true');
 }
 
 export async function forgotPassword(
@@ -495,5 +484,5 @@ export async function resetPassword(
     return 'Database Error: Failed to Update User.';
   }
 
-  redirect('/login');
+  redirect('/login?password-updated=true');
 }
