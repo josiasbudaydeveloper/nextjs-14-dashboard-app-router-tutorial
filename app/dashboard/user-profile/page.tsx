@@ -18,7 +18,7 @@ export default async function Page() {
   return (
     <main className="w-full">
       <div className="flex w-full items-center justify-between mb-6">
-        <h1 className={`${lusitana.className} text-2xl ${darkTheme.title}`}>Customers</h1>
+        <h1 className={`${lusitana.className} text-2xl ${darkTheme.title}`}>User Profile</h1>
       </div>
       <Form user={user} />
     </main>
