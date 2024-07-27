@@ -24,7 +24,7 @@ const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
 function GoogleSignIn() {
   toast.error(
     <>
-      This login option <b>does not</b> work due to <b>Google's privacy protection rules</b>. <br />
+      This login option <b>does not</b> work due to <b>Google&apos;s privacy protection rules</b>. <br />
       <br />
       As this is a <b>test project</b>, I cannot provide all the necessary <b>bureaucracy</b>.
     </>
