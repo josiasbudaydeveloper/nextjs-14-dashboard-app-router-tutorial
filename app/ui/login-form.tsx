@@ -22,10 +22,15 @@ import { useEffect } from 'react';
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
 // const GoogleSignIn = authenticateWithOAuth.bind(null, 'google');
 function GoogleSignIn() {
-  alert(
-    "This login option does not work due to Google's privacy protection rules. \n\n" +
-    "As this is a test project, I cannot provide all the necessary bureaucracy."
-  );
+  toast.error(
+    <>
+      This login option <b>does not</b> work due to <b>Google's privacy protection rules</b>. <br />
+      <br />
+      As this is a <b>test project</b>, I cannot provide all the necessary <b>bureaucracy</b>.
+    </>
+  , {
+    autoClose: 15000
+  });
 }
  
 export default function LoginForm() {
@@ -44,6 +49,9 @@ export default function LoginForm() {
     if (params.passwordUpdated) {
       toast.success("Password updated successfully!!");
     }
+    if (!params.accountCreated && !params.passwordUpdated) {
+      toast.warning(<><b>Note</b>: accounts are now automatically <b>deleted</b> after <b>one week</b>.</>);
+    } 
   }, []);
 
   return (
