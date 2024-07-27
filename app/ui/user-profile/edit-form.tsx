@@ -227,7 +227,7 @@ export default function Form({
         )}
       </div>
 
-      <div className="mt-6 flex justify-end gap-4">
+      <div className="mt-6 flex justify-end">
         <Button type="submit">Update User</Button>
       </div>
     </form>

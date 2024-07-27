@@ -390,6 +390,32 @@ export async function updateUser(
   redirect('/dashboard/user-profile?user-updated=true');
 }
 
+export async function updateTheme(
+  formData: FormData
+)  {
+  
+  const theme = formData.get('theme') as string;
+  const email = formData.get('user-email') as string;
+
+  try {
+    await sql`
+      UPDATE users
+      SET
+        theme = ${theme}
+      WHERE
+        email = ${email}
+    `;
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+
+    return {
+      message: 'Database Error: Failed to Update User.',
+    };
+  }
+
+  redirect('/dashboard/settings');
+}
+
 export async function forgotPassword(
   prevState: string | undefined, 
   formData: FormData) 

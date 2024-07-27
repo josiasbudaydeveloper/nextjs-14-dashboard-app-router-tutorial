@@ -8,6 +8,7 @@ export type User = {
   email: string;
   password: string;
   isoauth: boolean;
+  theme: string | undefined;
 };
 
 export type Customer = {
