@@ -13,21 +13,21 @@ export type themeType = {
   inputIcon: string;
 }
 
-export const systemDefault : themeType = {
-  bg: 'bg-white dark:bg-[#181818]',
-  container: 'bg-gray-100 dark:bg-[#212121]',
-  title: 'text-black dark:text-white',
-  text: 'text-gray-700 dark:text-[#ebebeb]',
-  border: 'border-gray-100 dark:border-gray-500',
-  notActiveText: 'dark:text-gray-500',
-  divide: 'dark:divide-gray-500',
+export const lightTheme : themeType = {
+  bg: 'bg-white',
+  container: 'bg-gray-50',
+  title: 'text-black',
+  text: 'text-gray-900',
+  border: 'border-gray-200',
+  notActiveText: '',
+  divide: 'divide-gray-200',
 
   // Actions
-  activeLink: 'dark:bg-[#1c2932] dark:hover:bg-[#1c2932]',
-  hoverBg: 'dark:hover:bg-[#1c2932]',
-  hoverText: 'dark:hover:text-blue-600',
-  hoverBorder: 'dark:hover:border-blue-600',
-  inputIcon: 'dark:peer-focus:text-gray-500'
+  activeLink: 'bg-sky-100',
+  hoverBg: 'hover:bg-sky-100',
+  hoverText: 'hover:text-blue-600',
+  hoverBorder: 'hover:border-blue-600',
+  inputIcon: 'peer-focus:text-gray-900'
 }
 
 export const darkTheme : themeType = {
@@ -47,19 +47,19 @@ export const darkTheme : themeType = {
   inputIcon: 'peer-focus:text-gray-500'
 }
 
-export const lightTheme : themeType = {
-  bg: 'bg-white',
-  container: 'bg-gray-50',
-  title: 'text-black',
-  text: 'text-gray-900',
-  border: 'border-gray-200',
-  notActiveText: '',
-  divide: 'divide-gray-200',
+export const systemDefault : themeType = {
+  bg: `${lightTheme.bg} hover:${darkTheme.bg}`,
+  container: `${lightTheme.container} hover:${darkTheme.container}`,
+  title: `${lightTheme.title} hover:${darkTheme.title}`,
+  text: `${lightTheme.text} hover:${darkTheme.text}`,
+  border: `${lightTheme.border} hover:${darkTheme.border}`,
+  notActiveText: `${lightTheme.notActiveText} hover:${darkTheme.notActiveText}`,
+  divide: `${lightTheme.divide} hover:${darkTheme.divide}`,
 
   // Actions
-  activeLink: 'bg-sky-100',
-  hoverBg: 'hover:bg-sky-100',
-  hoverText: 'hover:text-blue-600',
-  hoverBorder: 'hover:border-blue-600',
-  inputIcon: 'peer-focus:text-gray-900'
+  activeLink: `${lightTheme.activeLink} hover:${darkTheme.activeLink}`,
+  hoverBg: `${lightTheme.hoverBg} hover:${darkTheme.hoverBg}`,
+  hoverText: `${lightTheme.hoverText} hover:${darkTheme.hoverText}`,
+  hoverBorder: `${lightTheme.hoverBorder} hover:${darkTheme.hoverBorder}`,
+  inputIcon: `${lightTheme.inputIcon} hover:${darkTheme.inputIcon}`
 }
