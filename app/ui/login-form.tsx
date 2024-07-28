@@ -11,7 +11,7 @@ import { Button } from '@/app/ui/button';
 import Image from 'next/image';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticateWithCredentials } from '@/app/lib/actions';
-import darkTheme from '../lib/dark-theme';
+import { systemDefault } from '../lib/theme';
 import { authenticateWithOAuth } from '@/app/lib/actions';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -22,10 +22,15 @@ import { useEffect } from 'react';
 const GitHubSignIn = authenticateWithOAuth.bind(null, 'github');
 // const GoogleSignIn = authenticateWithOAuth.bind(null, 'google');
 function GoogleSignIn() {
-  alert(
-    "This login option does not work due to Google's privacy protection rules. \n\n" +
-    "As this is a test project, I cannot provide all the necessary bureaucracy."
-  );
+  toast.error(
+    <>
+      This login option <b>does not</b> work due to <b>Google&apos;s privacy protection rules</b>. <br />
+      <br />
+      As this is a <b>test project</b>, I cannot provide all the necessary <b>bureaucracy</b>.
+    </>
+  , {
+    autoClose: 15000
+  });
 }
  
 export default function LoginForm() {
@@ -44,6 +49,9 @@ export default function LoginForm() {
     if (params.passwordUpdated) {
       toast.success("Password updated successfully!!");
     }
+    if (!params.accountCreated && !params.passwordUpdated) {
+      toast.warning(<><b>Note</b>: accounts are now automatically <b>deleted</b> after <b>one week</b>.</>);
+    } 
   }, []);
 
   return (
@@ -51,23 +59,23 @@ export default function LoginForm() {
         px-6 pb-4 pt-8
       ">
         <ToastContainer theme="colored" />
-        <h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title}`}>
+        <h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title}`}>
           Please log in to continue.
         </h1>
       <form action={dispatch} className="space-y-3">  
         <div className="w-full">
           <div>
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="email"
             >
               Email:
             </label>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border} 
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border} 
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="email"
                 type="email"
@@ -77,22 +85,22 @@ export default function LoginForm() {
               />
               <AtSymbolIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] 
                 w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
           </div>
           <div className="mt-4">
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="password"
             >
               Password:
             </label>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border}
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border}
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="password"
                 type="password"
@@ -103,7 +111,7 @@ export default function LoginForm() {
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
           </div>
@@ -128,7 +136,7 @@ export default function LoginForm() {
       <ForgotPassword />
 
       <p className={`
-        ${darkTheme.text} pb-2 pt-[9px] text-center
+        ${systemDefault.text} pb-2 pt-[9px] text-center
       `}>
         or
       </p>

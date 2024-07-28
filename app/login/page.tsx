@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Login',
 };
  
-export default function LoginPage() {
+export default async function LoginPage() {
   return (
     <main className="flex items-center justify-center">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4">

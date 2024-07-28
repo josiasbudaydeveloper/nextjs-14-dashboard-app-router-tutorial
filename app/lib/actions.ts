@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import type { User } from '@/app/lib/definitions';
+import { unstable_noStore } from 'next/cache';
 
 // A regular expression to check for valid email format
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -388,6 +389,28 @@ export async function updateUser(
   }
  
   redirect('/dashboard/user-profile?user-updated=true');
+}
+
+export async function updateTheme(
+  formData: FormData
+)  {
+  unstable_noStore();
+  let theme = formData.get('theme') as 'system' | 'dark' | 'light';
+  const email = formData.get('user-email') as string;
+
+  try {
+    await sql`
+      UPDATE users
+      SET
+        theme = ${theme}
+      WHERE
+        email = ${email}
+    `;
+  } catch (error) {
+    console.log(error);
+  }
+
+  redirect('/dashboard/settings');
 }
 
 export async function forgotPassword(

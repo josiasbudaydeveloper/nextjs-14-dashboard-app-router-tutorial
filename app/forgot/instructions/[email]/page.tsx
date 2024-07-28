@@ -1,7 +1,7 @@
 import AcmeLogo from '@/app/ui/acme-logo';
 import { Metadata } from 'next';
 import { lusitana } from '@/app/ui/fonts';
-import darkTheme from '@/app/lib/dark-theme';
+import { systemDefault } from '@/app/lib/theme';
 
 export const metadata: Metadata = {
   title: 'Forgot password',
@@ -20,7 +20,7 @@ export default function LoginPage({params}: {params: {email: string}}) {
         <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
 					px-6 pb-4 pt-8
 				">
-					<h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title} text-ellipsis overflow-hidden`}>
+					<h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title} text-ellipsis overflow-hidden`}>
 						If you typed your email address correctly, a message with instructions 
             to reset your password was sent to {email}
 					</h1>

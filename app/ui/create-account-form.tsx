@@ -11,7 +11,7 @@ import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
 import { createUserWithCredentials } from '@/app/lib/actions';
-import darkTheme from '../lib/dark-theme';
+import { systemDefault } from '../lib/theme';
 import { useRouter } from 'next/navigation';
  
 export default function LoginForm() {
@@ -22,23 +22,23 @@ export default function LoginForm() {
     <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
         px-6 pb-4 pt-8
       ">
-        <h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title}`}>
+        <h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title}`}>
           Fill in the blanks to create a new account
         </h1>
       <form action={dispatch} className="space-y-3">  
         <div className="w-full">
           <div>
             <label
-              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="name"
             >
               Name:
             </ label>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border} 
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border} 
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="name"
                 type="name"
@@ -48,7 +48,7 @@ export default function LoginForm() {
               />
               <UserIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] 
                 w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
             <div id="name-error" aria-live="polite" aria-atomic="true">
@@ -62,16 +62,16 @@ export default function LoginForm() {
           </div>
           <div>
             <label
-              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-sm font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="email"
             >
               Email:
             </label>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border} 
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border} 
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="email"
                 type="email"
@@ -81,7 +81,7 @@ export default function LoginForm() {
               />
               <AtSymbolIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] 
                 w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
             <div id="email-error" aria-live="polite" aria-atomic="true">
@@ -95,20 +95,20 @@ export default function LoginForm() {
           </div>
           <div className="mt-4">
             <label
-              className={`mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mt-5 block text-sm font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="password"
             >
               Password:
             </label>
-            <p className={`mb-3 block text-xs font-medium text-gray-900 ${darkTheme.text}`}>
+            <p className={`mb-3 block text-xs font-medium text-gray-900 ${systemDefault.text}`}>
               The password must have at least 8 characters, 
               one special character, one upper case letter and one lower case letter.
             </p>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border}
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border}
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="password"
                 type="password"
@@ -119,7 +119,7 @@ export default function LoginForm() {
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
             <div id="customer-error" aria-live="polite" aria-atomic="true">
@@ -135,7 +135,7 @@ export default function LoginForm() {
 
         <div className="mb-4">
 					<label htmlFor="confirm-password" className={`mb-2 block text-sm font-medium
-						${darkTheme.text}
+						${systemDefault.text}
 					`}>
 						Confirm password: 
 					</label>
@@ -148,13 +148,13 @@ export default function LoginForm() {
 								placeholder="Confirm password"
 								className={`peer block w-full rounded-md border border-gray-200 
 									py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-									${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+									${systemDefault.border} ${systemDefault.bg} ${systemDefault.text}
 								`}
 								aria-describedby="confirm-password-error"
 							/>
 							<KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
 						</div>
 					</div>

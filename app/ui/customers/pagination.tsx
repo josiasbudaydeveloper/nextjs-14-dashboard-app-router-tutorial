@@ -5,9 +5,16 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { generatePagination } from '@/app/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
-import darkTheme from '@/app/lib/dark-theme';
+import { themeType } from '@/app/lib/theme';
 
-export default function Pagination({ totalPages }: { totalPages: number }) {
+export default function Pagination({ 
+  totalPages, 
+  theme
+}: 
+{ 
+  totalPages: number;
+  theme: themeType;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -31,6 +38,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
+          theme={theme}
         />
 
         <div className="flex -space-x-px">
@@ -49,6 +57,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
                 page={page}
                 position={position}
                 isActive={currentPage === page}
+                theme={theme}
               />
             );
           })}
@@ -58,6 +67,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           direction="right"
           href={createPageURL(currentPage + 1)}
           isDisabled={currentPage >= totalPages}
+          theme={theme}
         />
       </div>
     </>
@@ -69,24 +79,25 @@ function PaginationNumber({
   href,
   isActive,
   position,
+  theme
 }: {
   page: number | string;
   href: string;
   position?: 'first' | 'last' | 'middle' | 'single';
   isActive: boolean;
+  theme: themeType;
 }) {
   const className = clsx(
     `flex h-10 w-10 items-center justify-center text-sm border
-      ${darkTheme.border} ${darkTheme.text}
+      ${theme.border} ${theme.text}
       ${(!isActive && position !== 'middle') && 
-        `${darkTheme.hoverBorder} ${darkTheme.hoverBg} ${darkTheme.hoverText}`
+        `${theme.hoverBorder} ${theme.hoverBg} ${theme.hoverText}`
       }
     `,
     {
       'rounded-l-md': position === 'first' || position === 'single',
       'rounded-r-md': position === 'last' || position === 'single',
       'z-10 bg-blue-600 border-blue-600 text-white': isActive,
-      'hover:bg-gray-100': !isActive && position !== 'middle',
       'text-gray-300': position === 'middle',
     },
   );
@@ -104,20 +115,21 @@ function PaginationArrow({
   href,
   direction,
   isDisabled,
+  theme
 }: {
   href: string;
   direction: 'left' | 'right';
   isDisabled?: boolean;
+  theme: themeType;
 }) {
   const className = clsx(
     `flex h-10 w-10 items-center justify-center rounded-md border
-      ${darkTheme.border} ${darkTheme.text}
-      ${isDisabled && `${darkTheme.border} ${darkTheme.notActiveText}`}
-      ${!isDisabled && `${darkTheme.hoverBorder} ${darkTheme.hoverBg} ${darkTheme.hoverText}`}
+      ${theme.border} ${theme.text}
+      ${isDisabled && `${theme.border} ${theme.notActiveText}`}
+      ${!isDisabled && `${theme.hoverBorder} ${theme.hoverBg} ${theme.hoverText}`}
     `,
     {
       'pointer-events-none text-gray-300': isDisabled,
-      'hover:bg-gray-100': !isDisabled,
       'mr-2 md:mr-4': direction === 'left',
       'ml-2 md:ml-4': direction === 'right',
     },

@@ -5,12 +5,13 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
   UserIcon,
+  Cog6ToothIcon,
   
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import darkTheme from '@/app/lib/dark-theme';
+import { themeType } from '@/app/lib/theme';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -22,10 +23,11 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
-  { name: 'My Account', href: '/dashboard/user-profile', icon: UserIcon }
+  { name: 'My Account', href: '/dashboard/user-profile', icon: UserIcon },
+  { name: 'Settings', href: '/dashboard/settings', icon: Cog6ToothIcon }
 ];
 
-export default function NavLinks() {
+export default function NavLinks({theme}: {theme: themeType}) {
   const pathname = usePathname();
 
   return (
@@ -36,17 +38,14 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className={clsx(
+            className={
               `flex h-[48px] grow items-center justify-center gap-2 rounded-md 
-                bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 
+                p-3 text-sm font-medium hover:text-blue-600 
                 md:flex-none md:justify-start md:p-2 md:px-3
-                ${pathname !== link.href && `${darkTheme.container} ${darkTheme.title} ${darkTheme.hoverBg}`}
-                ${pathname === link.href && `${darkTheme.activeLink}`}
-                `,
-              {
-                'bg-sky-100 text-blue-600': pathname === link.href,
-              },
-            )}
+                ${pathname !== link.href && `${theme.container} ${theme.title} ${theme.hoverBg}`}
+                ${pathname === link.href && `${theme.activeLink} text-blue-600`}
+              `
+            }
           >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>

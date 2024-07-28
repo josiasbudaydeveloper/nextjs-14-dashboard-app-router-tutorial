@@ -6,7 +6,7 @@ import {
 import { Button } from '@/app/ui/button';
 import { resetPassword } from '@/app/lib/actions';
 import { useFormState, useFormStatus } from 'react-dom';
-import darkTheme from '@/app/lib/dark-theme';
+import { systemDefault } from '@/app/lib/theme';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 
@@ -19,15 +19,15 @@ export default function Form({token} :
 
 	return (
 		<form action={dispatch}>
-			<div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
+			<div className={`rounded-md bg-gray-50 ${systemDefault.container} p-4 md:p-6`}>
 				<div className="mb-4">
 					<label htmlFor="password" className={`block text-sm font-medium
-						${darkTheme.text}
+						${systemDefault.text}
 					`}>
 						Password: 
 					</label>
 					<p className={`mb-2 block text-xs font-medium
-						${darkTheme.text}
+						${systemDefault.text}
 					`}>
 						The password must have at least 8 characters, 
 						one special character, one upper case letter and one lower case letter.
@@ -41,13 +41,13 @@ export default function Form({token} :
 								placeholder="Enter the new user password"
 								className={`peer block w-full rounded-md border border-gray-200 
 									py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-									${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+									${systemDefault.border} ${systemDefault.bg} ${systemDefault.text}
 								`}
 								aria-describedby="password-error"
 							/>
 							<KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
 								-translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-								${darkTheme.inputIcon}
+								${systemDefault.inputIcon}
 							`}/>
 						</div>
 					</div>
@@ -55,7 +55,7 @@ export default function Form({token} :
 
 				<div>
 					<label htmlFor="confirm-password" className={`mb-2 block text-sm font-medium
-						${darkTheme.text}
+						${systemDefault.text}
 					`}>
 						Confirm password: 
 					</label>
@@ -68,13 +68,13 @@ export default function Form({token} :
 								placeholder="Confirm password"
 								className={`peer block w-full rounded-md border border-gray-200 
 									py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-									${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+									${systemDefault.border} ${systemDefault.bg} ${systemDefault.text}
 								`}
 								aria-describedby="confirm-password-error"
 							/>
 							<KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
 						</div>
 					</div>

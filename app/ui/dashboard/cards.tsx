@@ -6,8 +6,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchCardData } from '@/app/lib/data';
-import darkTheme from '@/app/lib/dark-theme';
 import { auth } from '@/auth';
+import { themeType } from '@/app/lib/theme';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -16,7 +16,7 @@ const iconMap = {
   invoices: InboxIcon,
 };
 
-export default async function CardWrapper() {
+export default async function CardWrapper({theme}:{theme: themeType}) {
   const session = await auth();
   const userEmail = session?.user?.email!;
 
@@ -31,13 +31,14 @@ export default async function CardWrapper() {
     <>
       {/* NOTE: comment in this code when you get to this point in the course */}
 
-      <Card title="Collected" value={totalPaidInvoices} type="collected" />
-      <Card title="Pending" value={totalPendingInvoices} type="pending" />
-      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
+      <Card title="Collected" value={totalPaidInvoices} type="collected" theme={theme} />
+      <Card title="Pending" value={totalPendingInvoices} type="pending" theme={theme} />
+      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" theme={theme} />
       <Card
         title="Total Customers"
         value={numberOfCustomers}
         type="customers"
+        theme={theme}
       />
     </>
   );
@@ -47,21 +48,23 @@ export function Card({
   title,
   value,
   type,
+  theme
 }: {
   title: string;
   value: number | string;
   type: 'invoices' | 'customers' | 'pending' | 'collected';
+  theme: themeType
 }) {
   const Icon = iconMap[type];
 
   return (
-    <div className={`rounded-xl bg-gray-50 ${darkTheme.container} p-2 shadow-sm`}>
+    <div className={`rounded-xl ${theme.container} p-2 shadow-sm`}>
       <div className="flex p-4">
-        {Icon ? <Icon className={`h-5 w-5 text-gray-700 ${darkTheme.text}`} /> : null}
-        <h3 className={`ml-2 text-sm font-medium ${darkTheme.title}`}>{title}</h3>
+        {Icon ? <Icon className={`h-5 w-5 ${theme.text}`} /> : null}
+        <h3 className={`ml-2 text-sm font-medium ${theme.title}`}>{title}</h3>
       </div>
       <p className={`${lusitana.className} truncate rounded-xl
-      bg-white ${darkTheme.bg} ${darkTheme.title} px-4 py-8 text-center text-2xl`}
+        ${theme.bg} ${theme.title} px-4 py-8 text-center text-2xl`}
       >
         {value}
       </p>
