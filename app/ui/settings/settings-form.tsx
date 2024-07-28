@@ -8,27 +8,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { updateTheme } from '@/app/lib/actions';
 import { Button } from '../button';
 import { User } from '@/app/lib/definitions';
-import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
+import { themeType } from '@/app/lib/theme';
 
-export default function Form({ user } : { user: User }) {
-  let theme: themeType;
-
-  switch(user.theme) {
-    case 'system':
-      theme = systemDefault;
-      break;
-    case 'dark':
-      theme = darkTheme;
-      break;
-    case 'light':
-      theme = lightTheme;
-      break;
-  }
+export default function Form({ 
+  user,
+  theme 
+} : 
+{ 
+  user: User;
+  theme: themeType; 
+}) {
   
   return (
     <form action={updateTheme}>
       <input type='hidden' name='user-email' value={user.email} />
-      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
+      <div className={`rounded-md ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="theme" className={`mb-2  block text-sm font-medium
             ${theme.text}
@@ -40,7 +34,7 @@ export default function Form({ user } : { user: User }) {
               id="theme"
               name="theme"
               className={`peer block w-full cursor-pointer rounded-md border 
-                border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
+                py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                 ${theme.border} ${theme.bg} ${theme.text}
               `}
               defaultValue={user.theme}

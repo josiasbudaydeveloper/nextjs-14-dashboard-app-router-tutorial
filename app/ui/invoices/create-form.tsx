@@ -26,7 +26,7 @@ export default function Form({
 
   return (
     <form action={dispatch}>
-      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
+      <div className={`rounded-md ${theme.container} p-4 md:p-6`}>
         {/* Customer Name */}
         <div className="mb-4">
           <label htmlFor="customer" className={`mb-2 block text-sm font-medium
@@ -39,7 +39,7 @@ export default function Form({
               id="customer"
               name="customerId"
               className={`peer block w-full cursor-pointer rounded-md border 
-                border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
+                py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                 ${theme.border} ${theme.bg} ${theme.text}
               `}
               defaultValue=""
@@ -83,14 +83,14 @@ export default function Form({
                 type="number"
                 step="0.01"
                 placeholder="Enter USD amount"
-                className={`peer block w-full rounded-md border border-gray-200 
+                className={`peer block w-full rounded-md border 
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                   ${theme.border} ${theme.bg} ${theme.text}
                 `}
                 aria-describedby="amount-error"
               />
               <CurrencyDollarIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
+                -translate-y-1/2 text-gray-500
                 ${theme.inputIcon}
               `}/>
             </div>
@@ -110,7 +110,7 @@ export default function Form({
           <legend className={`mb-2 block text-sm font-medium ${theme.text}`}>
             Set the invoice status
           </legend>
-          <div className={`rounded-md border border-gray-200 bg-white px-[14px] py-3
+          <div className={`rounded-md border px-[14px] py-3
             ${theme.bg} ${theme.border}
           `}>
             <div className="flex gap-4">
@@ -120,7 +120,7 @@ export default function Form({
                   name="status"
                   type="radio"
                   value="pending"
-                  className={`h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 
+                  className={`h-4 w-4 cursor-pointer 
                     text-gray-600 focus:ring-2 ${theme.container} ${theme.border}
                   `}
                   aria-describedby="status-error"
@@ -128,7 +128,7 @@ export default function Form({
                 <label
                   htmlFor="pending"
                   className={`ml-2 flex cursor-pointer items-center gap-1.5 rounded-full 
-                  bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600
+                  px-3 py-1.5 text-xs font-medium text-gray-600
                     ${theme.container} ${theme.border} ${theme.text}
                   `}
                 >
@@ -141,7 +141,7 @@ export default function Form({
                   name="status"
                   type="radio"
                   value="paid"
-                  className={`h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 
+                  className={`h-4 w-4 cursor-pointer 
                     text-gray-600 focus:ring-2 ${theme.container} ${theme.border}
                   `}
                   aria-describedby="status-error"
@@ -175,8 +175,8 @@ export default function Form({
         <Link
           href="/dashboard/invoices"
           className={`
-            flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium 
-            text-gray-600 transition-colors hover:bg-gray-200
+            flex h-10 items-center rounded-lg px-4 text-sm font-medium 
+            transition-colors
             ${theme.container} ${theme.border} ${theme.text}
             ${theme.hoverBg} ${theme.hoverText}
           `}

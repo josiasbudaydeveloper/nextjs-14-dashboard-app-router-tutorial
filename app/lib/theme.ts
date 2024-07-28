@@ -15,10 +15,10 @@ export type themeType = {
 
 export const systemDefault : themeType = {
   bg: 'bg-white dark:bg-[#181818]',
-  container: 'dark:bg-[#212121]',
+  container: 'bg-gray-100 dark:bg-[#212121]',
   title: 'text-black dark:text-white',
-  text: 'dark:text-[#ebebeb]',
-  border: 'dark:border-gray-500',
+  text: 'text-gray-700 dark:text-[#ebebeb]',
+  border: 'border-gray-100 dark:border-gray-500',
   notActiveText: 'dark:text-gray-500',
   divide: 'dark:divide-gray-500',
 
@@ -49,17 +49,17 @@ export const darkTheme : themeType = {
 
 export const lightTheme : themeType = {
   bg: 'bg-white',
-  container: '',
-  title: '',
-  text: '',
-  border: '',
+  container: 'bg-gray-50',
+  title: 'text-black',
+  text: 'text-gray-900',
+  border: 'border-gray-200',
   notActiveText: '',
-  divide: '',
+  divide: 'divide-gray-200',
 
   // Actions
-  activeLink: '',
-  hoverBg: '',
-  hoverText: '',
-  hoverBorder: '',
-  inputIcon: ''
+  activeLink: 'bg-sky-100',
+  hoverBg: 'hover:bg-sky-100',
+  hoverText: 'hover:text-blue-600',
+  hoverBorder: 'hover:border-blue-600',
+  inputIcon: 'peer-focus:text-gray-900'
 }

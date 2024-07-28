@@ -3,45 +3,31 @@ import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices, getUser } from '@/app/lib/data';
 import { auth } from '@/auth';
-import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
+import { themeType } from '@/app/lib/theme';
 
 export default async function InvoicesTable({
   query,
   currentPage,
-  
+  theme
 }: {
   query: string;
   currentPage: number;
+  theme: themeType;
 }) {
   const session = await auth();
   const userEmail = session?.user!.email!;
 
   const invoices = await fetchFilteredInvoices(query, currentPage, userEmail);
 
-  const user = await getUser(userEmail);
-  let theme: themeType;
-
-  switch(user.theme) {
-    case 'system':
-      theme = systemDefault;
-      break;
-    case 'dark':
-      theme = darkTheme;
-      break;
-    case 'light':
-      theme = lightTheme;
-      break;
-  }
-
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className={`rounded-lg bg-gray-50 ${theme.container} p-2 md:pt-0`}>
+        <div className={`rounded-lg ${theme.container} p-2 md:pt-0`}>
           <div className="md:hidden">
             {invoices?.map((invoice) => (
               <div
                 key={invoice.id}
-                className={`mb-2 w-full rounded-md bg-white p-4
+                className={`mb-2 w-full rounded-md p-4
                   ${theme.bg}
                 `}
               >
@@ -69,7 +55,7 @@ export default async function InvoicesTable({
               </div>
             ))}
           </div>
-          <table className={`hidden min-w-full text-gray-900 ${theme.text} md:table`}>
+          <table className={`hidden min-w-full ${theme.text} md:table`}>
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
@@ -92,7 +78,7 @@ export default async function InvoicesTable({
                 </th>
               </tr>
             </thead>
-            <tbody className={`bg-white ${theme.bg}`}>
+            <tbody className={`${theme.bg}`}>
               {invoices?.map((invoice) => (
                 <tr
                   key={invoice.id}

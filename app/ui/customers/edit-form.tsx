@@ -28,7 +28,7 @@ export default function EditInvoiceForm({
     <form action={dispatch}>
       <input type="hidden" name="userEmail" value={userEmail} />
 
-      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
+      <div className={`rounded-md ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="customer" className={`mb-2 block text-sm font-medium
             ${theme.text}
@@ -109,8 +109,8 @@ export default function EditInvoiceForm({
         <Link
           href="/dashboard/customers"
           className={`
-            flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium 
-            text-gray-600 transition-colors hover:bg-gray-200
+            flex h-10 items-center rounded-lg px-4 text-sm font-medium 
+            transition-colors
             ${theme.container} ${theme.border} ${theme.text}
             ${theme.hoverBg} ${theme.hoverText}
           `}

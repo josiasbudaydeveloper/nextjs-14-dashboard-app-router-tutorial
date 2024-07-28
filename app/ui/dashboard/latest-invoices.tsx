@@ -17,11 +17,11 @@ export default async function LatestInvoices({theme}:{theme: themeType}) {
         Latest Invoices
       </h2>
       <div className={`flex grow flex-col justify-between rounded-xl
-        bg-gray-50 ${theme.container} p-4
+        ${theme.container} p-4
       `}>
         {/* NOTE: comment in this code when you get to this point in the course */}
 
-        <div className={`bg-white ${theme.bg} px-6`}>
+        <div className={`${theme.bg} px-6`}>
           {latestInvoices.map((invoice, i) => {
             return (
               <div

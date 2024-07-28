@@ -28,7 +28,7 @@ export default async function CustomersTable({
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className={`
-              overflow-hidden rounded-md bg-gray-50 ${theme.container}
+              overflow-hidden rounded-md ${theme.container}
               p-2 md:pt-0
             `}>
               <div className="md:hidden">
@@ -36,7 +36,7 @@ export default async function CustomersTable({
                   <div
                     key={customer.id}
                     className={`
-                      mb-2 w-full rounded-md bg-white ${theme.bg} p-4
+                      mb-2 w-full ${theme.bg} p-4
                     `}>
                     <div className="flex items-center justify-between border-b pb-4">
                       <div>
@@ -71,10 +71,10 @@ export default async function CustomersTable({
                 ))}
               </div>
               <table className={`
-                hidden min-w-full rounded-md text-gray-900 ${theme.text} md:table
+                hidden min-w-full rounded-md ${theme.text} md:table
               `}>
                 <thead className={`
-                  rounded-md bg-gray-50 ${theme.container}
+                  ${theme.container}
                   text-left text-sm font-normal
                 `}>
                   <tr>
@@ -97,40 +97,40 @@ export default async function CustomersTable({
                 </thead>
 
                 <tbody className={`
-                  divide-y divide-gray-200 ${theme.divide} 
-                  text-gray-900 ${theme.text}
+                  divide-y ${theme.divide} 
+                  ${theme.text}
                 `}>
                   {customers.map((customer) => (
                     <tr key={customer.id} className="group">
                       <td className={`
-                        whitespace-nowrap bg-white ${theme.bg} py-5 pl-4 pr-3 text-sm 
-                        text-black ${theme.title} group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6
+                        whitespace-nowrap ${theme.bg} py-5 pl-4 pr-3 text-sm 
+                        ${theme.title} sm:pl-6 rounded-l-md
                       `}>
                         <div className="flex items-center gap-3">
                           <p>{customer.name}</p>
                         </div>
                       </td>
                       <td className={`
-                        whitespace-nowrap bg-white ${theme.bg} px-4 py-5 text-sm        
+                        whitespace-nowrap ${theme.bg} ${theme.text} px-4 py-5 text-sm        
                       `}>
                         {customer.email}
                       </td>
                       <td className={`
-                        whitespace-nowrap bg-white ${theme.bg} px-4 py-5 text-sm        
+                        whitespace-nowrap ${theme.bg} ${theme.text} px-4 py-5 text-sm        
                       `}>
                         {customer.total_invoices}
                       </td>
                       <td className={`
-                        whitespace-nowrap bg-white ${theme.bg} px-4 py-5 text-sm        
+                        whitespace-nowrap ${theme.bg} px-4 py-5 text-sm ${theme.text}   
                       `}>
                         {customer.total_pending}
                       </td>
-                      <td className={`whitespace-nowrap bg-white ${theme.bg} px-4 py-5 
-                        text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md
+                      <td className={`whitespace-nowrap ${theme.bg} px-4 py-5 
+                        ${theme.text}  
                         `}>
                         {customer.total_paid}
                       </td>
-                      <td className={`whitespace-nowrap py-3 pl-6 pr-3 ${theme.bg}`}>
+                      <td className={`whitespace-nowrap py-3 pl-6 pr-3 ${theme.bg} rounded-r-md`}>
                         <div className="flex justify-end gap-3">
                           <UpdateCustomer id={customer.id} theme={theme} />
                           <DeleteCustomer id={customer.id} theme={theme} />

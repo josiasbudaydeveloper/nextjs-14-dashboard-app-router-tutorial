@@ -32,7 +32,7 @@ export default async function Page() {
       <div className="flex w-full items-center justify-between mb-6">
         <h1 className={`${lusitana.className} text-2xl ${theme.title}`}>User Profile</h1>
       </div>
-      <Form user={user} />
+      <Form user={user} theme={theme} />
     </main>
   )
 }

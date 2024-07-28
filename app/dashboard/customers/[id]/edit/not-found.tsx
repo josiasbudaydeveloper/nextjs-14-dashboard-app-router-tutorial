@@ -29,7 +29,7 @@ export default async function NotFound() {
 
   return (
     <main className="flex h-full flex-col items-center justify-center gap-2">
-      <FaceFrownIcon className="w-10 text-gray-400" />
+      <FaceFrownIcon className={`w-10 ${theme.text}`} />
       <h2 className={`text-xl font-semibold ${theme.title}`}>404 Not Found</h2>
       <p className={`${theme.text}`}>Could not find the requested customer.</p>
       <Link

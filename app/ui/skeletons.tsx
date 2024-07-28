@@ -9,7 +9,7 @@ const shimmer =
 export function CardSkeleton({ theme }:{ theme: themeType }) {
   return (
     <div
-      className={`${shimmer} relative overflow-hidden rounded-xl bg-gray-100 p-2 shadow-sm
+      className={`${shimmer} relative overflow-hidden rounded-xl p-2 shadow-sm
         ${theme.container}
       `}
     >
@@ -17,7 +17,7 @@ export function CardSkeleton({ theme }:{ theme: themeType }) {
         <div className="h-5 w-5 rounded-md bg-gray-200" />
         <div className="ml-2 h-6 w-16 rounded-md bg-gray-200 text-sm font-medium" />
       </div>
-      <div className={`flex items-center justify-center truncate rounded-xl bg-white px-4 py-8
+      <div className={`flex items-center justify-center truncate rounded-xl px-4 py-8
         ${theme.bg}
       `}>
         <div className="h-7 w-20 rounded-md bg-gray-200" />
@@ -41,9 +41,9 @@ export function RevenueChartSkeleton({ theme }:{ theme: themeType }) {
   return (
     <div className={`${shimmer} relative w-full overflow-hidden md:col-span-4`}>
       <div className="mb-4 h-8 w-36 rounded-md bg-gray-100" />
-        <div className={`rounded-xl bg-gray-100 p-4 ${theme.container}`}>
+        <div className={`rounded-xl p-4 ${theme.container}`}>
         <div className={`mt-0 grid h-[410px] grid-cols-12 items-end gap-2 rounded-md 
-          bg-white p-4 sm:grid-cols-13 md:gap-4 ${theme.bg}
+          p-4 sm:grid-cols-13 md:gap-4 ${theme.bg}
         `}/>
         <div className="flex items-center pb-2 pt-6">
           <div className="h-5 w-5 rounded-full bg-gray-200" />
@@ -56,7 +56,7 @@ export function RevenueChartSkeleton({ theme }:{ theme: themeType }) {
 
 export function InvoiceSkeleton({ theme }:{ theme: themeType }) {
   return (
-    <div className={`flex flex-row items-center justify-between border-b border-gray-100 py-4
+    <div className={`flex flex-row items-center justify-between border-b py-4
       ${theme.border}
     `}>
       <div className="flex items-center">
@@ -76,10 +76,10 @@ export function LatestInvoicesSkeleton({ theme }:{ theme: themeType }) {
       className={`${shimmer} relative flex w-full flex-col overflow-hidden md:col-span-4`}
     >
       <div className={`mb-4 h-8 w-36 rounded-md bg-gray-100`}/>
-      <div className={`flex grow flex-col justify-between rounded-xl bg-gray-100 
+      <div className={`flex grow flex-col justify-between rounded-xl 
         ${theme.container} p-4
       `}>
-        <div className={`bg-white ${theme.bg} px-6`}>
+        <div className={`${theme.bg} px-6`}>
           <InvoiceSkeleton theme={theme} />
           <InvoiceSkeleton theme={theme} />
           <InvoiceSkeleton theme={theme} />
@@ -117,7 +117,7 @@ export default function DashboardSkeleton({ theme }:{ theme: themeType }) {
 
 export function TableRowSkeleton({ theme }:{ theme: themeType }) {
   return (
-    <tr className={`w-full border-b border-gray-100 last-of-type:border-none 
+    <tr className={`w-full border-b last-of-type:border-none 
       [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg 
       [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg
       ${theme.bg} ${theme.border}
@@ -159,7 +159,7 @@ export function InvoicesMobileSkeleton({ theme }:{ theme: themeType }) {
   return (
     <div className={`mb-2 w-full rounded-md bg-white p-4 ${theme.bg}`}>
       <div className={`
-        flex items-center justify-between border-b border-gray-100 pb-8 
+        flex items-center justify-between border-b pb-8 
         ${theme.border}
       `}>
         <div className="flex items-center">
@@ -185,7 +185,7 @@ export function InvoicesTableSkeleton({ theme }:{ theme: themeType }) {
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className={`rounded-lg bg-gray-50 ${theme.container} p-2 md:pt-0`}>
+        <div className={`rounded-lg ${theme.container} p-2 md:pt-0`}>
           <div className="md:hidden">
             <InvoicesMobileSkeleton theme={theme} />
             <InvoicesMobileSkeleton theme={theme} />

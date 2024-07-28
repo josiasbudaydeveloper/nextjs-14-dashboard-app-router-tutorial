@@ -12,12 +12,14 @@ import { useSearchParams } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
-import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
+import { themeType } from '@/app/lib/theme';
 
 export default function Form({ 
-  user
+  user,
+  theme
 } : { 
   user: User;
+  theme: themeType;
 }) {
 
   const initialState = { message: null, errors: {} };
@@ -32,26 +34,12 @@ export default function Form({
     }
   });
 
-  let theme: themeType;
-
-  switch(user.theme) {
-    case 'system':
-      theme = systemDefault;
-      break;
-    case 'dark':
-      theme = darkTheme;
-      break;
-    case 'light':
-      theme = lightTheme;
-      break;
-  }
-
   return (
     <form action={dispatch}>
       <ToastContainer theme="colored" />
       <input type="hidden" name="userEmail" value={user.email} />
 
-      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
+      <div className={`rounded-md ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           { user.password === null ? (
               <p className={`
@@ -90,7 +78,7 @@ export default function Form({
               type="text"
               defaultValue={user.name}
               placeholder="Type the new user name"
-              className={`peer block w-full rounded-md border border-gray-200 
+              className={`peer block w-full rounded-md border 
                 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                 ${theme.border} ${theme.bg} ${theme.text}
               `}
@@ -113,12 +101,12 @@ export default function Form({
 
         <div className="mb-4">
         <label
-            className={`mt-5 block text-sm font-medium text-gray-900 ${theme.text}`}
+            className={`mt-5 block text-sm font-medium ${theme.text}`}
             htmlFor="password"
           >
             Password:
           </label>
-          <p className={`mb-3 block text-xs font-medium text-gray-900 ${theme.text}`}>
+          <p className={`mb-3 block text-xs font-medium ${theme.text}`}>
             The password must have at least 8 characters, <br /> 
             one special character, one upper case letter and one lower case letter.
           </p>
@@ -129,15 +117,14 @@ export default function Form({
                 name="password"
                 type="password"
                 placeholder="Enter the new user password"
-                className={`peer block w-full rounded-md border border-gray-200 
+                className={`peer block w-full rounded-md border
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                   ${theme.border} ${theme.bg} ${theme.text}
                 `}
                 aria-describedby="password-error"
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${theme.inputIcon}
+                -translate-y-1/2 text-gray-500 ${theme.inputIcon}
               `}/>
             </div>
 
@@ -165,15 +152,14 @@ export default function Form({
                 name="confirm-password"
                 type="password"
                 placeholder="Confirm password"
-                className={`peer block w-full rounded-md border border-gray-200 
+                className={`peer block w-full rounded-md border
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                   ${theme.border} ${theme.bg} ${theme.text}
                 `}
                 aria-describedby="confirm-password-error"
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${theme.inputIcon}
+                -translate-y-1/2 text-gray-500 ${theme.inputIcon}
               `}/>
             </div>
 
@@ -187,51 +173,6 @@ export default function Form({
             </div>
           </div>
         </div>
-
-        {/* <div className="mb-4">
-          <label htmlFor="theme" className={`mb-2  block text-sm font-medium
-            ${theme.text}
-          `}>
-            Choose theme:
-          </label>
-          <div className="relative">
-            <select
-              id="theme"
-              name="theme"
-              className={`peer block w-full cursor-pointer rounded-md border 
-                border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                ${theme.border} ${theme.bg} ${theme.text}
-              `}
-              defaultValue={user.theme}
-              aria-describedby="customer-error"
-            >
-              <option value="" disabled>
-                Select a theme
-              </option>
-              <option value="0">
-                Light
-              </option>
-              <option value="1">
-                Dark
-              </option>
-              <option value="2">
-                System Default
-              </option>
-            </select>
-            <UserCircleIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-              -translate-y-1/2 text-gray-500 ${theme.inputIcon}
-            `}/>
-          </div>
-
-          <div id="theme-error" aria-live="polite" aria-atomic="true">
-            {state?.errors?.theme &&
-              state.errors.theme.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div> */}
 
         {state?.message && (
           <p className="mt-2 text-sm text-red-500"  key={state.message}>

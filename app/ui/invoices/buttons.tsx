@@ -26,7 +26,7 @@ export function UpdateInvoice({
   return (
     <Link
       href={`/dashboard/invoices/${id}/edit`}
-      className={`rounded-md border p-2 hover:bg-gray-100
+      className={`rounded-md border p-2
         ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
         ${theme.hoverBorder}
       `}
@@ -48,7 +48,7 @@ export function DeleteInvoice({
  
   return (
     <form action={deleteInvoiceWithId}>
-      <button className={`rounded-md border p-2 hover:bg-gray-100
+      <button className={`rounded-md border p-2
         ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
         ${theme.hoverBorder}
       `}>
@@ -82,7 +82,7 @@ export function UpdateCustomer({
   return (
     <Link
       href={`/dashboard/customers/${id}/edit`}
-      className={`rounded-md border p-2 hover:bg-gray-100
+      className={`rounded-md border p-2
         ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
         ${theme.hoverBorder}
       `}
@@ -104,7 +104,7 @@ export function DeleteCustomer({
  
   return (
     <form action={deleteCustomerWithId}>
-      <button className={`rounded-md border p-2 hover:bg-gray-100
+      <button className={`rounded-md border p-2
         ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
         ${theme.hoverBorder}
       `}>

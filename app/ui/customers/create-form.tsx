@@ -26,7 +26,7 @@ export default function Form({
     <form action={dispatch}>
       <input type="hidden" name="userEmail" value={userEmail} />
 
-      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
+      <div className={`rounded-md ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="customer" className={`mb-2 block text-sm font-medium
             ${theme.text}
@@ -39,7 +39,7 @@ export default function Form({
               name="name"
               type="text"
               placeholder="Type the customer name"
-              className={`peer block w-full rounded-md border border-gray-200 
+              className={`peer block w-full rounded-md border 
                 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                 ${theme.border} ${theme.bg} ${theme.text}
               `}
@@ -73,7 +73,7 @@ export default function Form({
                 name="email"
                 type="mail"
                 placeholder="Enter the customer email"
-                className={`peer block w-full rounded-md border border-gray-200 
+                className={`peer block w-full rounded-md border 
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
                   ${theme.border} ${theme.bg} ${theme.text}
                 `}
@@ -105,8 +105,8 @@ export default function Form({
         <Link
           href="/dashboard/customers"
           className={`
-            flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium 
-            text-gray-600 transition-colors hover:bg-gray-200
+            flex h-10 items-center rounded-lg px-4 text-sm font-medium 
+            transition-colors 
             ${theme.container} ${theme.border} ${theme.text}
             ${theme.hoverBg} ${theme.hoverText}
           `}
