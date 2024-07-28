@@ -47,7 +47,7 @@ export const darkTheme : themeType = {
   inputIcon: 'peer-focus:text-gray-500'
 }
 
-export const systemDefault : themeType = {
+/* export const systemDefault : themeType = {
   bg: `${lightTheme.bg} dark:${darkTheme.bg}`,
   container: `${lightTheme.container} dark:${darkTheme.container}`,
   title: `${lightTheme.title} dark:${darkTheme.title}`,
@@ -62,4 +62,21 @@ export const systemDefault : themeType = {
   hoverText: `${lightTheme.hoverText} dark:${darkTheme.hoverText}`,
   hoverBorder: `${lightTheme.hoverBorder} dark:${darkTheme.hoverBorder}`,
   inputIcon: `${lightTheme.inputIcon} dark:${darkTheme.inputIcon}`
+} */
+
+export const systemDefault = {
+  bg: 'bg-white',
+  container: 'bg-gray-50',
+  title: 'text-black',
+  text: 'text-gray-900',
+  border: 'border-gray-200',
+  notActiveText: '',
+  divide: 'divide-gray-200',
+
+  // Actions
+  activeLink: 'bg-sky-100',
+  hoverBg: 'hover:bg-sky-100',
+  hoverText: 'hover:text-blue-600',
+  hoverBorder: 'hover:border-blue-600',
+  inputIcon: 'peer-focus:text-gray-900'
 }

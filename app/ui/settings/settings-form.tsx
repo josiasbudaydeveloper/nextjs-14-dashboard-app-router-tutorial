@@ -43,9 +43,6 @@ export default function Form({
               <option value="" disabled>
                 Select a theme
               </option>
-              <option value="system">
-                System Default
-              </option>
               <option value="dark">
                 Dark
               </option>
