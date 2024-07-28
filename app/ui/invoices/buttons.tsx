@@ -1,7 +1,7 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice, deleteCustomer } from '@/app/lib/actions';
-import darkTheme from '@/app/lib/dark-theme';
+import { themeType } from '@/app/lib/theme';
 
 export function CreateInvoice() {
   return (
@@ -15,13 +15,20 @@ export function CreateInvoice() {
   );
 }
 
-export function UpdateInvoice({ id }: { id: string }) {
+export function UpdateInvoice({ 
+  id,
+  theme 
+}: 
+{ 
+  id: string;
+  theme: themeType
+}) {
   return (
     <Link
       href={`/dashboard/invoices/${id}/edit`}
       className={`rounded-md border p-2 hover:bg-gray-100
-        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
-        ${darkTheme.hoverBorder}
+        ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
+        ${theme.hoverBorder}
       `}
     >
       <PencilIcon className="w-5" />
@@ -29,14 +36,21 @@ export function UpdateInvoice({ id }: { id: string }) {
   );
 }
 
-export function DeleteInvoice({ id }: { id: string }) {
+export function DeleteInvoice({ 
+  id,
+  theme 
+}: 
+{ 
+  id: string;
+  theme: themeType
+}) {
   const deleteInvoiceWithId = deleteInvoice.bind(null, id);
  
   return (
     <form action={deleteInvoiceWithId}>
       <button className={`rounded-md border p-2 hover:bg-gray-100
-        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
-        ${darkTheme.hoverBorder}
+        ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
+        ${theme.hoverBorder}
       `}>
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
@@ -57,13 +71,20 @@ export function CreateCustomer() {
   );
 }
 
-export function UpdateCustomer({ id }: { id: string }) {
+export function UpdateCustomer({ 
+  id,
+  theme 
+}: 
+{ 
+  id: string;
+  theme: themeType
+}) {
   return (
     <Link
       href={`/dashboard/customers/${id}/edit`}
       className={`rounded-md border p-2 hover:bg-gray-100
-        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
-        ${darkTheme.hoverBorder}
+        ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
+        ${theme.hoverBorder}
       `}
     >
       <PencilIcon className="w-5" />
@@ -71,14 +92,21 @@ export function UpdateCustomer({ id }: { id: string }) {
   );
 }
 
-export function DeleteCustomer({ id }: { id: string }) {
+export function DeleteCustomer({ 
+  id,
+  theme 
+}: 
+{ 
+  id: string;
+  theme: themeType
+}) {
   const deleteCustomerWithId = deleteCustomer.bind(null, id);
  
   return (
     <form action={deleteCustomerWithId}>
       <button className={`rounded-md border p-2 hover:bg-gray-100
-        ${darkTheme.border} ${darkTheme.text} ${darkTheme.hoverBg} ${darkTheme.hoverText}
-        ${darkTheme.hoverBorder}
+        ${theme.border} ${theme.text} ${theme.hoverBg} ${theme.hoverText}
+        ${theme.hoverBorder}
       `}>
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />

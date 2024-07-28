@@ -4,23 +4,34 @@ import {
   MoonIcon,
   SunIcon,
 } from '@heroicons/react/24/outline';
-import darkTheme from '@/app/lib/dark-theme';
 import 'react-toastify/dist/ReactToastify.css';
-import { useFormState } from 'react-dom';
 import { updateTheme } from '@/app/lib/actions';
 import { Button } from '../button';
 import { User } from '@/app/lib/definitions';
+import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
 
 export default function Form({ user } : { user: User }) {
-  const theme = user.theme;
+  let theme: themeType;
+
+  switch(user.theme) {
+    case 'system':
+      theme = systemDefault;
+      break;
+    case 'dark':
+      theme = darkTheme;
+      break;
+    case 'light':
+      theme = lightTheme;
+      break;
+  }
   
   return (
     <form action={updateTheme}>
       <input type='hidden' name='user-email' value={user.email} />
-      <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
+      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           <label htmlFor="theme" className={`mb-2  block text-sm font-medium
-            ${darkTheme.text}
+            ${theme.text}
           `}>
             Choose theme:
           </label>
@@ -30,9 +41,9 @@ export default function Form({ user } : { user: User }) {
               name="theme"
               className={`peer block w-full cursor-pointer rounded-md border 
                 border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                ${theme.border} ${theme.bg} ${theme.text}
               `}
-              defaultValue={theme}
+              defaultValue={user.theme}
               aria-describedby="customer-error"
             >
               <option value="" disabled>
@@ -49,24 +60,24 @@ export default function Form({ user } : { user: User }) {
               </option>
             </select>
             {
-              (!theme || theme == 'system' ) ? 
+              (!user.theme || user.theme == 'system' ) ? 
                 <>
                   <SunIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                  -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+                  -translate-y-1/2 text-gray-500 ${theme.inputIcon}
                   `}/>
                   <MoonIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                  -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+                  -translate-y-1/2 text-gray-500 ${theme.inputIcon}
                   `}/>
                 </> : 
-                (theme == 'dark') ?
+                (user.theme == 'dark') ?
                   <>
                     <MoonIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                    -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+                    -translate-y-1/2 text-gray-500 ${theme.inputIcon}
                     `}/>
                   </> :
                   <>
                     <SunIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-                    -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+                    -translate-y-1/2 text-gray-500 ${theme.inputIcon}
                     `}/>
                   </>
             }

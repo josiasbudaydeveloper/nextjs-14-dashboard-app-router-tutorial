@@ -2,10 +2,10 @@ import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchLatestInvoices } from '@/app/lib/data';
-import darkTheme from '@/app/lib/dark-theme';
 import { auth } from '@/auth';
+import { themeType } from '@/app/lib/theme';
 
-export default async function LatestInvoices() {
+export default async function LatestInvoices({theme}:{theme: themeType}) {
   const session = await auth();
   const userEmail = session?.user?.email!;
 
@@ -13,22 +13,22 @@ export default async function LatestInvoices() {
 
   return (
     <div className="flex w-full flex-col md:col-span-4">
-      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl ${darkTheme.title}`}>
+      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl ${theme.title}`}>
         Latest Invoices
       </h2>
       <div className={`flex grow flex-col justify-between rounded-xl
-        bg-gray-50 ${darkTheme.container} p-4
+        bg-gray-50 ${theme.container} p-4
       `}>
         {/* NOTE: comment in this code when you get to this point in the course */}
 
-        <div className={`bg-white ${darkTheme.bg} px-6`}>
+        <div className={`bg-white ${theme.bg} px-6`}>
           {latestInvoices.map((invoice, i) => {
             return (
               <div
                 key={invoice.id}
                 className={clsx(
                   `flex flex-row items-center justify-between py-4
-                    ${darkTheme.border}
+                    ${theme.border}
                   `,
                   {
                     'border-t': i !== 0,
@@ -37,7 +37,7 @@ export default async function LatestInvoices() {
               >
                 <div className="flex items-center">
                   <div className="min-w-0">
-                    <p className={`truncate text-sm font-semibold md:text-base ${darkTheme.title}`}>
+                    <p className={`truncate text-sm font-semibold md:text-base ${theme.title}`}>
                       {invoice.name}
                     </p>
                     <p className="hidden text-sm text-gray-500 sm:block">
@@ -47,7 +47,7 @@ export default async function LatestInvoices() {
                 </div>
                 <p
                   className={`${lusitana.className} truncate text-sm font-medium md:text-base 
-                    ${darkTheme.title}
+                    ${theme.title}
                   `}>
                   {invoice.amount}
                 </p>

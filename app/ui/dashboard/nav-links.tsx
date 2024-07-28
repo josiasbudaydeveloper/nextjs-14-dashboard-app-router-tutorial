@@ -11,7 +11,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import darkTheme from '@/app/lib/dark-theme';
+import { themeType } from '@/app/lib/theme';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -27,7 +27,7 @@ const links = [
   { name: 'Settings', href: '/dashboard/settings', icon: Cog6ToothIcon }
 ];
 
-export default function NavLinks() {
+export default function NavLinks({theme}: {theme: themeType}) {
   const pathname = usePathname();
 
   return (
@@ -42,8 +42,8 @@ export default function NavLinks() {
               `flex h-[48px] grow items-center justify-center gap-2 rounded-md 
                 bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 
                 md:flex-none md:justify-start md:p-2 md:px-3
-                ${pathname !== link.href && `${darkTheme.container} ${darkTheme.title} ${darkTheme.hoverBg}`}
-                ${pathname === link.href && `${darkTheme.activeLink}`}
+                ${pathname !== link.href && `${theme.container} ${theme.title} ${theme.hoverBg}`}
+                ${pathname === link.href && `${theme.activeLink}`}
                 `,
               {
                 'bg-sky-100 text-blue-600': pathname === link.href,

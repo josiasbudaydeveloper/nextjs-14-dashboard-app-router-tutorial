@@ -9,7 +9,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { forgotPassword } from '@/app/lib/actions';
-import darkTheme from '../lib/dark-theme';
+import { systemDefault } from '../lib/theme';
 import { useRouter } from 'next/navigation';
  
 export default function LoginForm() {
@@ -19,23 +19,23 @@ export default function LoginForm() {
     <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
         px-6 pb-4 pt-8
       ">
-        <h1 className={`${lusitana.className} mb-3 text-2xl ${darkTheme.title}`}>
+        <h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title}`}>
           Please provide your email address for password reset
         </h1>
       <form action={dispatch} className="space-y-3">  
         <div className="w-full">
           <div>
             <label
-              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${darkTheme.text}`}
+              className={`mb-3 mt-5 block text-xs font-medium text-gray-900 ${systemDefault.text}`}
               htmlFor="email"
             >
               Email:
             </label>
             <div className="relative">
               <input
-                className={`peer block w-full rounded-md border border-gray-200 ${darkTheme.border} 
-                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${darkTheme.bg}
-                  ${darkTheme.text}
+                className={`peer block w-full rounded-md border border-gray-200 ${systemDefault.border} 
+                  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 ${systemDefault.bg}
+                  ${systemDefault.text}
                 `}
                 id="email"
                 type="email"
@@ -45,7 +45,7 @@ export default function LoginForm() {
               />
               <AtSymbolIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] 
                 w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${systemDefault.inputIcon}
               `}/>
             </div>
           </div>

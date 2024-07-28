@@ -1,9 +1,10 @@
 import Form from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+import { fetchInvoiceById, fetchCustomers, getUser } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { auth } from '@/auth';
+import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
 
 export const metadata: Metadata = {
   title: 'Edit Invoice',
@@ -23,6 +24,21 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (!invoice) {
     notFound();
   }
+
+  const user = await getUser(userEmail);
+  let theme: themeType;
+
+  switch(user.theme) {
+    case 'system':
+      theme = systemDefault;
+      break;
+    case 'dark':
+      theme = darkTheme;
+      break;
+    case 'light':
+      theme = lightTheme;
+      break;
+  }
   
   return (
     <main>
@@ -35,8 +51,9 @@ export default async function Page({ params }: { params: { id: string } }) {
             active: true,
           },
         ]}
+        theme={theme}
       />
-      <Form invoice={invoice} customers={customers} />
+      <Form invoice={invoice} customers={customers} theme={theme} />
     </main>
   )
 }

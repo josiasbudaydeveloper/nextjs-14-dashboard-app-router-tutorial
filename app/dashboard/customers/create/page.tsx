@@ -1,3 +1,5 @@
+import { getUser } from '@/app/lib/data';
+import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
 import Form from '@/app/ui/customers/create-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { auth } from '@/auth';
@@ -10,6 +12,20 @@ export const metadata: Metadata = {
 export default async function Page() {
   const session = await auth();
   const userEmail = session?.user?.email!;
+  const user = await getUser(userEmail);
+  let theme: themeType;
+
+  switch(user.theme) {
+    case 'system':
+      theme = systemDefault;
+      break;
+    case 'dark':
+      theme = darkTheme;
+      break;
+    case 'light':
+      theme = lightTheme;
+      break;
+  }
 
   return (
     <main>
@@ -22,8 +38,9 @@ export default async function Page() {
             active: true,
           },
         ]}
+        theme={theme}
       />
-      <Form userEmail={userEmail} />
+      <Form userEmail={userEmail} theme={theme}/>
     </main>
   );
 }

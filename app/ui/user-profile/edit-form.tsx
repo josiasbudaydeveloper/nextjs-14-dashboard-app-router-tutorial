@@ -1,24 +1,23 @@
 'use client';
 
 import {
-  AtSymbolIcon,
   KeyIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { updateUser } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
-import darkTheme from '@/app/lib/dark-theme';
 import { User } from '@/app/lib/definitions';
 import { useSearchParams } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import { darkTheme, lightTheme, systemDefault, themeType } from '@/app/lib/theme';
 
 export default function Form({ 
   user
 } : { 
-  user: User
+  user: User;
 }) {
 
   const initialState = { message: null, errors: {} };
@@ -33,12 +32,26 @@ export default function Form({
     }
   });
 
+  let theme: themeType;
+
+  switch(user.theme) {
+    case 'system':
+      theme = systemDefault;
+      break;
+    case 'dark':
+      theme = darkTheme;
+      break;
+    case 'light':
+      theme = lightTheme;
+      break;
+  }
+
   return (
     <form action={dispatch}>
       <ToastContainer theme="colored" />
       <input type="hidden" name="userEmail" value={user.email} />
 
-      <div className={`rounded-md bg-gray-50 ${darkTheme.container} p-4 md:p-6`}>
+      <div className={`rounded-md bg-gray-50 ${theme.container} p-4 md:p-6`}>
         <div className="mb-4">
           { user.password === null ? (
               <p className={`
@@ -66,7 +79,7 @@ export default function Form({
 
         <div className="mb-4">
           <label htmlFor="name" className={`mb-2 block text-sm font-medium
-            ${darkTheme.text}
+            ${theme.text}
           `}>
             Name: 
           </label>
@@ -79,12 +92,12 @@ export default function Form({
               placeholder="Type the new user name"
               className={`peer block w-full rounded-md border border-gray-200 
                 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                ${theme.border} ${theme.bg} ${theme.text}
               `}
               aria-describedby="name-error"
             />
             <UserCircleIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-              -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+              -translate-y-1/2 text-gray-500 ${theme.inputIcon}
             `}/>
           </div>
 
@@ -100,12 +113,12 @@ export default function Form({
 
         <div className="mb-4">
         <label
-            className={`mt-5 block text-sm font-medium text-gray-900 ${darkTheme.text}`}
+            className={`mt-5 block text-sm font-medium text-gray-900 ${theme.text}`}
             htmlFor="password"
           >
             Password:
           </label>
-          <p className={`mb-3 block text-xs font-medium text-gray-900 ${darkTheme.text}`}>
+          <p className={`mb-3 block text-xs font-medium text-gray-900 ${theme.text}`}>
             The password must have at least 8 characters, <br /> 
             one special character, one upper case letter and one lower case letter.
           </p>
@@ -118,13 +131,13 @@ export default function Form({
                 placeholder="Enter the new user password"
                 className={`peer block w-full rounded-md border border-gray-200 
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                  ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                  ${theme.border} ${theme.bg} ${theme.text}
                 `}
                 aria-describedby="password-error"
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${theme.inputIcon}
               `}/>
             </div>
 
@@ -141,7 +154,7 @@ export default function Form({
 
         <div className="mb-4">
           <label htmlFor="confirm-password" className={`mb-2 block text-sm font-medium
-            ${darkTheme.text}
+            ${theme.text}
           `}>
             Confirm password: 
           </label>
@@ -154,13 +167,13 @@ export default function Form({
                 placeholder="Confirm password"
                 className={`peer block w-full rounded-md border border-gray-200 
                   py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                  ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                  ${theme.border} ${theme.bg} ${theme.text}
                 `}
                 aria-describedby="confirm-password-error"
               />
               <KeyIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
                 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900
-                ${darkTheme.inputIcon}
+                ${theme.inputIcon}
               `}/>
             </div>
 
@@ -177,7 +190,7 @@ export default function Form({
 
         {/* <div className="mb-4">
           <label htmlFor="theme" className={`mb-2  block text-sm font-medium
-            ${darkTheme.text}
+            ${theme.text}
           `}>
             Choose theme:
           </label>
@@ -187,7 +200,7 @@ export default function Form({
               name="theme"
               className={`peer block w-full cursor-pointer rounded-md border 
                 border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500
-                ${darkTheme.border} ${darkTheme.bg} ${darkTheme.text}
+                ${theme.border} ${theme.bg} ${theme.text}
               `}
               defaultValue={user.theme}
               aria-describedby="customer-error"
@@ -206,7 +219,7 @@ export default function Form({
               </option>
             </select>
             <UserCircleIcon className={`pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] 
-              -translate-y-1/2 text-gray-500 ${darkTheme.inputIcon}
+              -translate-y-1/2 text-gray-500 ${theme.inputIcon}
             `}/>
           </div>
 
