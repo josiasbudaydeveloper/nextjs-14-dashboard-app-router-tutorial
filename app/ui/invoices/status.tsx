@@ -1,13 +1,20 @@
+import { themeType } from '@/app/lib/theme';
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import darkTheme from '@/app/lib/dark-theme';
 
-export default function InvoiceStatus({ status }: { status: string }) {
+export default function InvoiceStatus({ 
+  status,
+  theme
+}: 
+{ 
+  status: string;
+  theme: themeType;
+ }) {
   return (
     <span
       className={clsx(
         `inline-flex items-center rounded-full px-2 py-1 text-xs
-          ${status === 'pending' && `${darkTheme.container}`}
+          ${status === 'pending' && `${theme.container}`}
         `,
         {
           'bg-gray-100 text-gray-500': status === 'pending',

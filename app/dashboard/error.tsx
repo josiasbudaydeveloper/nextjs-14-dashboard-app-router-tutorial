@@ -2,7 +2,7 @@
  
 import { useEffect } from 'react';
 import { Metadata } from 'next'; 
-import darkTheme from '@/app/lib/dark-theme';
+import { systemDefault } from '@/app/lib/theme';
 
 export const metadata: Metadata = {
   title: 'Error',
@@ -22,7 +22,7 @@ export default function Error({
  
   return (
     <main className="flex h-full flex-col items-center justify-center">
-      <h2 className={`text-center ${darkTheme.title}`}>Something went wrong!</h2>
+      <h2 className={`text-center ${systemDefault.title}`}>Something went wrong!</h2>
       <button
         className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
         onClick={
