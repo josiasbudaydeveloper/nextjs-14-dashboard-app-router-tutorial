@@ -48,18 +48,18 @@ export const darkTheme : themeType = {
 }
 
 export const systemDefault : themeType = {
-  bg: `${lightTheme.bg} hover:${darkTheme.bg}`,
-  container: `${lightTheme.container} hover:${darkTheme.container}`,
-  title: `${lightTheme.title} hover:${darkTheme.title}`,
-  text: `${lightTheme.text} hover:${darkTheme.text}`,
-  border: `${lightTheme.border} hover:${darkTheme.border}`,
-  notActiveText: `${lightTheme.notActiveText} hover:${darkTheme.notActiveText}`,
-  divide: `${lightTheme.divide} hover:${darkTheme.divide}`,
+  bg: `${lightTheme.bg} dark:${darkTheme.bg}`,
+  container: `${lightTheme.container} dark:${darkTheme.container}`,
+  title: `${lightTheme.title} dark:${darkTheme.title}`,
+  text: `${lightTheme.text} dark:${darkTheme.text}`,
+  border: `${lightTheme.border} dark:${darkTheme.border}`,
+  notActiveText: `${lightTheme.notActiveText} dark:${darkTheme.notActiveText}`,
+  divide: `${lightTheme.divide} dark:${darkTheme.divide}`,
 
   // Actions
-  activeLink: `${lightTheme.activeLink} hover:${darkTheme.activeLink}`,
-  hoverBg: `${lightTheme.hoverBg} hover:${darkTheme.hoverBg}`,
-  hoverText: `${lightTheme.hoverText} hover:${darkTheme.hoverText}`,
-  hoverBorder: `${lightTheme.hoverBorder} hover:${darkTheme.hoverBorder}`,
-  inputIcon: `${lightTheme.inputIcon} hover:${darkTheme.inputIcon}`
+  activeLink: `${lightTheme.activeLink} dark:${darkTheme.activeLink}`,
+  hoverBg: `${lightTheme.hoverBg} dark:${darkTheme.hoverBg}`,
+  hoverText: `${lightTheme.hoverText} dark:${darkTheme.hoverText}`,
+  hoverBorder: `${lightTheme.hoverBorder} dark:${darkTheme.hoverBorder}`,
+  inputIcon: `${lightTheme.inputIcon} dark:${darkTheme.inputIcon}`
 }
