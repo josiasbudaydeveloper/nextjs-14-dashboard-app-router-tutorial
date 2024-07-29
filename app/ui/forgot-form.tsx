@@ -16,9 +16,9 @@ export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(forgotPassword, undefined);
 
   return (
-    <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
+    <div className={`flex-1 rounded-lg ${systemDefault.container}
         px-6 pb-4 pt-8
-      ">
+      `}>
         <h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title}`}>
           Please provide your email address for password reset
         </h1>

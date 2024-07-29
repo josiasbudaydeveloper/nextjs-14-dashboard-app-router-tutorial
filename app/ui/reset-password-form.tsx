@@ -19,7 +19,7 @@ export default function Form({token} :
 
 	return (
 		<form action={dispatch}>
-			<div className={`rounded-md bg-gray-50 ${systemDefault.container} p-4 md:p-6`}>
+			<div className={`rounded-md ${systemDefault.container} p-4 md:p-6`}>
 				<div className="mb-4">
 					<label htmlFor="password" className={`block text-sm font-medium
 						${systemDefault.text}
