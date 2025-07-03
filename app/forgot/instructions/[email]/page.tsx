@@ -17,7 +17,7 @@ export default function LoginPage({params}: {params: {email: string}}) {
             <AcmeLogo />
           </div>
         </div>
-        <div className="flex-1 rounded-lg bg-gray-50 dark:bg-[#212121]
+        <div className="flex-1 rounded-lg bg-gray-50
 					px-6 pb-4 pt-8
 				">
 					<h1 className={`${lusitana.className} mb-3 text-2xl ${systemDefault.title} text-ellipsis overflow-hidden`}>
