@@ -30,11 +30,10 @@ export default function Page() {
           <ul className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
           md:text-3xl md:leading-normal
           `}>
-              <li>- Dark Mode</li>
+              <li>- Dark Theme feature based on the user&apos;s profile theme</li>
               <li>- Multiuser system</li>
               <li>- OAuth Authentication</li>
               <li>- Pagination for the customers, as they&apos;re going to be flexible at this version</li>
-              <li>- Dark Theme feature based on the user&apos;s profile theme</li>
             </ul>
           
           <Link
