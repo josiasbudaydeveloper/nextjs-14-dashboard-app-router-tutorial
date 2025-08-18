@@ -19,4 +19,4 @@ A Dashboard App where users can create an account (with their credentials or usi
 - Multiuser system
 - OAuth Authentication
 - Pagination for the customers, as they're going to be flexible at this version
-- Dark Theme feature based on the user's browser theme
+- Dark Theme feature based on the user's profile theme
