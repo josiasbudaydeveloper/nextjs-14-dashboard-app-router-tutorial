@@ -13,28 +13,28 @@ export default function Page() {
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
         <div className={`flex flex-col justify-center gap-6 rounded-lg bg-gray-50 ${systemDefault.container} 
-          px-6 py-10 md:w-2/5 md:px-20
+          px-6 py-10 md:w-2/5 md:px-20 h-[500px] overflow-y-auto
         `}>
           <p className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
           md:text-3xl md:leading-normal
           `}>
             <strong>Welcome to Acme.</strong> 
             A Multi-Tenant SAAS Dashboard where users can create an account and manage their customers and invoices. 
-            It is based on the Next Learn Course, the official {' '}
+            It is based on the 
             <a href="https://nextjs.org/learn/" className="text-blue-500">
-              Next.js Learn Course
-            </a> {' '} created by Vercel 
-            and which I modified to strengthen my skills, by adding the following features:
+              Next Learn Course
+            </a>
+              , the official Next.js course, created by Vercel and which I modified to strengthen my skills by adding the following features:
           </p>
           
           <ul className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
           md:text-3xl md:leading-normal
           `}>
-              <li>Dark Mode</li>
-              <li>Multiuser system</li>
-              <li>OAuth Authentication</li>
+              <li>- Dark Mode</li>
+              <li>- Multiuser system</li>
+              <li>- OAuth Authentication</li>
               <li>
-                Pagination for the customers, as they&apos;re going to be flexible at this version
+                - Pagination for the customers, as they&apos;re going to be flexible at this version
                 Dark Theme feature based on the user&apos;s browser theme
               </li>
             </ul>
@@ -46,6 +46,7 @@ export default function Page() {
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>
         </div>
+        
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           <Image
             src="/hero-desktop.png"
