@@ -18,12 +18,27 @@ export default function Page() {
           <p className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
           md:text-3xl md:leading-normal
           `}>
-            <strong>Welcome to Acme.</strong> This is the example for the{' '}
+            <strong>Welcome to Acme.</strong> 
+            A Multi-Tenant SAAS Dashboard where users can create an account and manage their customers and invoices. 
+            It is based on the Next Learn Course, the official {' '}
             <a href="https://nextjs.org/learn/" className="text-blue-500">
               Next.js Learn Course
-            </a>
-            , brought to you by Vercel.
+            </a> {' '} created by Vercel 
+            and which I modified to strengthen my skills, by adding the following features:
           </p>
+          
+          <ul className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
+          md:text-3xl md:leading-normal
+          `}>
+              <li>Dark Mode</li>
+              <li>Multiuser system</li>
+              <li>OAuth Authentication</li>
+              <li>
+                Pagination for the customers, as they're going to be flexible at this version
+                Dark Theme feature based on the user's browser theme
+              </li>
+            </ul>
+          
           <Link
             href="/login"
             className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
