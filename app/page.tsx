@@ -13,7 +13,7 @@ export default function Page() {
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
         <div className={`flex flex-col justify-center gap-6 rounded-lg bg-gray-50 ${systemDefault.container} 
-          px-6 py-10 md:w-2/5 md:px-20 h-[500px] overflow-y-auto
+          px-6 py-10 md:w-2/5 md:px-20 h-[760px] overflow-y-auto
         `}>
           <p className={`${lusitana.className} text-xl text-gray-800 ${systemDefault.text}
           md:text-3xl md:leading-normal
@@ -33,10 +33,8 @@ export default function Page() {
               <li>- Dark Mode</li>
               <li>- Multiuser system</li>
               <li>- OAuth Authentication</li>
-              <li>
-                - Pagination for the customers, as they&apos;re going to be flexible at this version
-                Dark Theme feature based on the user&apos;s browser theme
-              </li>
+              <li>- Pagination for the customers, as they&apos;re going to be flexible at this version</li>
+              <li>Dark Theme feature based on the user&apos;s profile theme</li>
             </ul>
           
           <Link
