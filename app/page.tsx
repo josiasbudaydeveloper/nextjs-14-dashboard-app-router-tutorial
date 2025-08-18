@@ -34,7 +34,7 @@ export default function Page() {
               <li>- Multiuser system</li>
               <li>- OAuth Authentication</li>
               <li>- Pagination for the customers, as they&apos;re going to be flexible at this version</li>
-              <li>Dark Theme feature based on the user&apos;s profile theme</li>
+              <li>- Dark Theme feature based on the user&apos;s profile theme</li>
             </ul>
           
           <Link
